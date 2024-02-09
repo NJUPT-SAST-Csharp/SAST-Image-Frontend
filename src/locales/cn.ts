@@ -1,8 +1,8 @@
 const message = {
-    welcome: "与科协分享你的视角"
+  welcome: "锟斤拷锟叫拷锟斤拷锟斤拷锟斤拷锟接斤拷"
 }
 
 export const CN = {
-    title:"视觉科协",
-    message,
+  title: "锟接撅拷锟斤拷协",
+  message
 }

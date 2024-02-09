@@ -1,5 +1,5 @@
 <template>
-  <div>I'm home page</div>
+  <div>I'm search page.</div>
 </template>
 
 <script setup lang="ts"></script>

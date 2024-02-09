@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import HeaderBar from "./components/HeaderBar/HeaderBar.vue"
 </script>
 
 <template>
-  <el-header></el-header>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-    <RouterLink to="/login">Login</RouterLink>
-  </nav>
-
-  <RouterView />
+  <el-container class="main-container" direction="vertical">
+    <div class="header-container">
+      <HeaderBar />
+    </div>
+    <el-main style="padding: 0%">
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main-container {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  top: 0;
+}
+
+.header-container{
+  display: flex;
+  height: 60px;
+}
+</style>
