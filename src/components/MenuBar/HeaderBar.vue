@@ -46,7 +46,7 @@
         <el-text class="detailed-display" size="large">{{ $t("menuItem.search") }}</el-text>
       </template>
     </el-menu-item>
-    <el-menu-item index="upload" @click="isUpload = true">
+    <el-menu-item index="upload">
       <el-icon><Upload /></el-icon>
       <template #title>
         <el-text class="detailed-display" size="large">{{ $t("action.upload") }}</el-text>
@@ -57,8 +57,6 @@
       <ProfileDiv />
     </el-menu-item>
   </el-menu>
-
-  <UploadDialog v-model="isUpload" />
 </template>
 
 <script lang="ts" setup>
@@ -67,8 +65,6 @@ import media from "@/stores/media"
 import ProfileDiv from "./ProfileDiv.vue"
 import MainHomeDiv from "./MainHomeDiv.vue"
 import router from "@/router"
-
-const isUpload = ref(false)
 
 // 图标定位控制
 const currentView = computed(() => {
@@ -86,14 +82,9 @@ const currentView = computed(() => {
   flex-grow: 1;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 36rem) {
   .detailed-display {
     display: none;
-  }
-}
-@media (min-width: 48rem) {
-  .text-display {
-    display: inline;
   }
 }
 

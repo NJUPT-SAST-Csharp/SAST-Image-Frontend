@@ -1,8 +1,13 @@
 <template>
-  <div class="profile-div" @click="router.push(profileItemRouterPath)">
-    <el-avatar :src="avatarSrc" fit="cover">
-      <img src="../../assets/avatar.png" />
-    </el-avatar>
+  <div id="profile-div" @click="router.push(profileItemRouterPath)">
+    <span id="avatar-span">
+      <el-avatar :src="avatarSrc" fit="cover">
+        <img src="../../assets/avatar.png" width="40" height="40" />
+      </el-avatar>
+    </span>
+    <el-text id="username" truncated>
+      {{ auth.isLoggedIn() ? auth.jwt()?.username : $t("loginView.login") }}
+    </el-text>
   </div>
 </template>
 
@@ -27,25 +32,39 @@ const profileItemRouterPath = computed(() => {
 </script>
 
 <style scoped>
-.profile-div {
+#avatar-span {
+  width: 40px;
   display: flex;
+}
+
+#profile-div {
+  max-width: 200px;
+  min-width: 100px;
+  height: 36px;
+  display: flex;
+  float: left;
   border: 1px solid var(--el-border-color);
   box-shadow: var(--el-box-shadow-lighter);
   border-radius: 20px;
   align-items: center;
   cursor: pointer;
 }
-@media (max-width: 48rem) {
-  .profile-div {
-    width: 40px;
-    height: 36px;
-  }
+
+#username {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5px;
+  padding-right: 10px;
 }
 
-@media (min-width: 48rem) {
-  .profile-div {
-    width: 120px;
+@media (max-width: 48rem) {
+  #profile-div {
+    min-width: 40px;
+    width: 0px;
     height: 36px;
+  }
+  #username {
+    display: none;
   }
 }
 </style>
