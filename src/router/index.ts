@@ -70,7 +70,7 @@ router.beforeEach((to, from) => {
     }
   }
   const oriName: string = to.name?.toString()!
-  console.log(oriName);
+  console.log(oriName)
   window.document.title = oriName.charAt(0).toUpperCase() + oriName.substring(1) + " / SastImg"
 })
 

@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AsideBar: typeof import('./src/components/MenuBar/AsideBar.vue')['default']
+    CustomHeaderBar: typeof import('./src/components/HeaderBar/CustomHeaderBar.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -39,12 +41,13 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    HeaderBar: typeof import('./src/components/HeaderBar/HeaderBar.vue')['default']
+    HeaderBar: typeof import('./src/components/MenuBar/HeaderBar.vue')['default']
     HeaderUpload: typeof import('./src/components/Profile/HeaderUpload.vue')['default']
     ImageContainer: typeof import('./src/components/ImageControl/ImageContainer.vue')['default']
     ImageItem: typeof import('./src/components/ImageControl/ImageItem.vue')['default']
     MainFrame: typeof import('./src/components/MainFrame.vue')['default']
-    ProfileDiv: typeof import('./src/components/HeaderBar/ProfileDiv.vue')['default']
+    MainHomeDiv: typeof import('./src/components/MenuBar/MainHomeDiv.vue')['default']
+    ProfileDiv: typeof import('./src/components/MenuBar/ProfileDiv.vue')['default']
     ProfileEdit: typeof import('./src/components/Profile/ProfileEdit.vue')['default']
     ProfileEditDialog: typeof import('./src/components/Profile/ProfileEditDialog.vue')['default']
     ProfileHeader: typeof import('./src/components/Profile/ProfileHeader.vue')['default']

@@ -28,13 +28,24 @@ const profileItemRouterPath = computed(() => {
 
 <style scoped>
 .profile-div {
-  margin-left: auto;
-  width: 40px;
   display: flex;
   border: 1px solid var(--el-border-color);
   box-shadow: var(--el-box-shadow-lighter);
   border-radius: 20px;
   align-items: center;
   cursor: pointer;
+}
+@media (max-width: 48rem) {
+  .profile-div {
+    width: 40px;
+    height: 36px;
+  }
+}
+
+@media (min-width: 48rem) {
+  .profile-div {
+    width: 120px;
+    height: 36px;
+  }
 }
 </style>
