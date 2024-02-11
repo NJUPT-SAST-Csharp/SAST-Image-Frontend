@@ -1,35 +1,27 @@
 <template>
-  <el-container class="main-container">
-    <el-aside v-if="media.isPC" width="100px"> Aside</el-aside>
-    <el-header height="60px" v-else-if="display">
-      <HeaderBar />
-    </el-header>
-    <el-main style="padding: 0%">
-      <div id="placeholder">
-        <img id="logo" src="./assets/logo.png" height="30" />
-      </div>
-      <router-view />
-    </el-main>
-  </el-container>
+  <div style="display: flex">
+    <AsideBar class="hidden-sm-and-down" />
+    <el-container>
+      <HeaderBar id="header-bar" />
+      <el-main>
+        <router-view />
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import media from "@/stores/media"
 import HeaderBar from "./components/MenuBar/HeaderBar.vue"
-
-const display = ref(true)
-let scrollValue = 0
-window.addEventListener("scroll", () => {
-  const offset = document.documentElement.scrollTop - scrollValue
-  if (offset > 5) display.value = false
-  else if (offset < -5) display.value = true
-  scrollValue = document.documentElement.scrollTop
-})
+import AsideBar from "./components/MenuBar/AsideBar.vue"
 </script>
 
 <style scoped>
-.main-container {
+.el-main {
+  padding: 0%;
+  margin-left: 0;
+}
+
+.el-container {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
   width: 100%;
@@ -38,6 +30,21 @@ window.addEventListener("scroll", () => {
 }
 
 .el-header {
+  padding: 0;
+  width: 100%;
+}
+.header-placeholder {
+  display: flex;
+  height: 60px;
+}
+
+@media screen and (max-width: 62rem) {
+  .el-main {
+    margin-top: 60px;
+  }
+}
+
+#header-bar {
   position: fixed;
   top: 0;
   z-index: 400;
@@ -46,11 +53,6 @@ window.addEventListener("scroll", () => {
   display: flex;
   align-items: center;
   box-shadow: var(--el-box-shadow-light);
-}
-
-#placeholder {
-  display: flex;
-  height: 60px;
 }
 
 #logo {

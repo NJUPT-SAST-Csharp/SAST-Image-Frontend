@@ -10,7 +10,7 @@ import { createPinia } from "pinia"
 import { i18n } from "./locales/i18n"
 import App from "./App.vue"
 import router from "./router"
-import globalVars from "./stores/global"
+import "element-plus/theme-chalk/display.css"
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

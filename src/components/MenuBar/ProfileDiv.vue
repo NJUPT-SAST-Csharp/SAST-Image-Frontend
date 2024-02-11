@@ -1,21 +1,26 @@
 <template>
-  <div id="profile-div" @click="router.push(profileItemRouterPath)">
+  <div class="profile-div" :class="{ briefProfile: props.manual && props.collapse }">
     <span id="avatar-span">
       <el-avatar :src="avatarSrc" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
       </el-avatar>
     </span>
-    <el-text id="username" truncated>
+    <el-text id="username" :class="{ briefUsername: props.manual && props.collapse }" truncated>
       {{ auth.isLoggedIn() ? auth.jwt()?.username : $t("loginView.login") }}
     </el-text>
   </div>
 </template>
 
 <script setup lang="ts">
-import router from "@/router"
 import auth from "@/stores/auth"
 import getProfile from "@/network/apis/profile/GetProfile"
 import { computed, onMounted, ref } from "vue"
+
+// 是否展开
+const props = defineProps({
+  manual: { type: Boolean, required: false },
+  collapse: { type: Boolean, required: false }
+})
 
 const avatarSrc = ref("")
 onMounted(async () => {
@@ -37,7 +42,7 @@ const profileItemRouterPath = computed(() => {
   display: flex;
 }
 
-#profile-div {
+.profile-div {
   max-width: 200px;
   min-width: 100px;
   height: 36px;
@@ -48,6 +53,7 @@ const profileItemRouterPath = computed(() => {
   border-radius: 20px;
   align-items: center;
   cursor: pointer;
+  margin: auto;
 }
 
 #username {
@@ -58,7 +64,7 @@ const profileItemRouterPath = computed(() => {
 }
 
 @media (max-width: 48rem) {
-  #profile-div {
+  .profile-div {
     min-width: 40px;
     width: 0px;
     height: 36px;
@@ -66,5 +72,14 @@ const profileItemRouterPath = computed(() => {
   #username {
     display: none;
   }
+}
+
+.briefProfile {
+  min-width: 40px;
+  height: 36px;
+}
+
+.briefUsername {
+  display: none;
 }
 </style>
