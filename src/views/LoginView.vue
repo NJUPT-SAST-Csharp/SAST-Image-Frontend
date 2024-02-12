@@ -1,33 +1,8 @@
-<script lang="ts" setup>
-import { i18n } from "@/locales/i18n"
-import { ref } from "vue"
-import { ElMessage } from "element-plus"
-import loginApi from "../network/apis/account/Login"
-import auth from "../stores/auth"
-import router from "@/router"
-
-const isLoading = ref(false)
-const loginDto = ref({ username: "", password: "" })
-const login = async () => {
-  isLoading.value = true
-  const response = await loginApi(loginDto.value.username, loginDto.value.password)
-  isLoading.value = false
-  if (response.status >= 300) {
-    ElMessage.error(i18n.global.t("loginView.loginFailed"))
-  } else {
-    auth.setToken(response.data["token"])
-    console.log(auth.jwt());
-    ElMessage.success(i18n.global.t("loginView.loginSuccess"))
-    router.push({ name: "profile", params: { username: auth.jwt()?.username } })
-  }
-}
-</script>
-
 <template>
   <el-card class="main-frame" shadow="hover">
     <template #header>
       <div>
-        <img src="src/assets/logo.png" height="24" />
+        <img src="../assets/logo.png" height="24" />
       </div>
     </template>
     <el-form inline style="margin-left: 5%">
@@ -62,6 +37,31 @@ const login = async () => {
     </el-form>
   </el-card>
 </template>
+
+<script lang="ts" setup>
+import { i18n } from "@/locales/i18n"
+import { ref } from "vue"
+import { ElMessage } from "element-plus"
+import loginApi from "../network/apis/account/Login"
+import auth from "../stores/auth"
+import router from "@/router"
+
+const isLoading = ref(false)
+const loginDto = ref({ username: "", password: "" })
+
+const login = async () => {
+  isLoading.value = true
+  const response = await loginApi(loginDto.value.username, loginDto.value.password)
+  isLoading.value = false
+  if (response.status >= 300) {
+    ElMessage.error(i18n.global.t("loginView.loginFailed"))
+  } else {
+    auth.setToken(response.data["jwt"])
+    ElMessage.success(i18n.global.t("loginView.loginSuccess"))
+    router.push({ name: "profile", params: { username: auth.getJwt()?.username } })
+  }
+}
+</script>
 
 <style scoped>
 .main-frame {

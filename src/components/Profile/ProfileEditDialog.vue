@@ -99,7 +99,7 @@ const editContent = ref({
 })
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.token()
+  Authorization: "Bearer " + auth.getToken()
 }
 
 const save = async () => {

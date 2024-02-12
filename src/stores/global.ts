@@ -1,6 +1,5 @@
 import { reactive } from "vue"
 const global = {
-  email: "",
   countdown: 0
 }
 

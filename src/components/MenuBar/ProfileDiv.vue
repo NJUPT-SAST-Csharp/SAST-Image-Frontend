@@ -6,7 +6,7 @@
       </el-avatar>
     </span>
     <el-text id="username" :class="{ briefUsername: props.manual && props.collapse }" truncated>
-      {{ auth.isLoggedIn() ? auth.jwt()?.username : $t("loginView.login") }}
+      {{ auth.isLoggedIn() ? auth.getJwt()?.username : $t("loginView.login") }}
     </el-text>
   </div>
 </template>
@@ -25,13 +25,13 @@ const props = defineProps({
 const avatarSrc = ref("")
 onMounted(async () => {
   if (auth.isLoggedIn()) {
-    const content = await getProfile(auth.jwt()?.username!, false)
+    const content = await getProfile(auth.getJwt()?.username!, false)
     if (content.status == 200) avatarSrc.value = content.data["avatar"]
   }
 })
 
 const profileItemRouterPath = computed(() => {
-  if (auth.isLoggedIn()) return "/" + auth.jwt()?.username!
+  if (auth.isLoggedIn()) return "/" + auth.getJwt()?.username!
   else return "/login"
 })
 </script>

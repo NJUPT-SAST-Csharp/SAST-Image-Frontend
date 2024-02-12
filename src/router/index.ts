@@ -1,9 +1,6 @@
 import auth from "@/stores/auth"
 import { createRouter, createWebHistory } from "vue-router"
 import ProfileView from "@/views/ProfileView.vue"
-import { VueElement, render } from "vue"
-import { i18n } from "@/locales/i18n"
-import AppVue from "@/App.vue"
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -37,7 +34,7 @@ const router = createRouter({
       name: "profile",
       component: ProfileView,
       props: true,
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: true }
     },
     {
       path: "/login",
@@ -49,12 +46,6 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: () => import("../views/RegisterView.vue"),
-      meta: { requiresAuth: false }
-    },
-    {
-      path: "/recent",
-      name: "recent",
-      component: () => import("../views/LoginView.vue"),
       meta: { requiresAuth: false }
     }
   ]

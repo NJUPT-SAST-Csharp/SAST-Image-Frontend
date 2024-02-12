@@ -64,7 +64,7 @@
           <el-text size="large">{{ $t("action.upload") }}</el-text>
         </template>
       </el-menu-item>
-      <el-menu-item index="profile" style="padding: 0%">
+      <el-menu-item index="profile" style="padding: 0%" @click="toProfile">
         <ProfileDiv manual :collapse="maincollapsed" />
       </el-menu-item>
     </el-menu>
@@ -76,6 +76,7 @@ import ProfileDiv from "./ProfileDiv.vue"
 import MainHomeDiv from "./MainHomeDiv.vue"
 import router from "@/router"
 import { computed, ref, watch } from "vue"
+import auth from "@/stores/auth"
 
 const maincollapsed = ref(true)
 const menuCollapsed = ref(true)
@@ -96,6 +97,7 @@ const currentView = computed(() => {
 // routers
 const toHome = () => router.push({ path: "/" })
 const toSearch = () => router.push({ name: "search" })
+const toProfile = () => router.push({ path: "/" + auth.jwt()?.username })
 </script>
 
 <style scoped lang="css">

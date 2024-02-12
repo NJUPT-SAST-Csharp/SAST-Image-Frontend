@@ -1,47 +1,61 @@
-import jwtDecode, { type JwtPayload } from "jwt-decode"
+import jwtDecode from "jwt-decode"
 
-interface JwtPayloadHelper extends JwtPayload {
+class jwtDto {
+  constructor(username: string, roles: string[], id: number, exp: number) {
+    this.username = username
+    this.roles = roles
+    this.id = id
+    this.exp = exp
+  }
+  username: string
+  roles: string[]
   id: number
-  role: string
+  exp: number
 }
 
-const getToken = (): string | null => {
-  const token = localStorage.getItem("jwt")
+const getJwt = (): jwtDto | null => {
+  const token = getJwtToken()
   if (!token) return null
-  const decode = jwtDecode(token) as JwtPayloadHelper
-  if ((decode.exp as number) * 1000 < Date.now()) {
-    localStorage.removeItem("jwt")
+  const dto = parseJwtToken(token)
+
+  if (checkExp(dto)) {
+    return dto
+  } else {
+    setJwtToken(null)
     return null
-  } else {
-    return token
-  }
-}
-const setToken = (value: string | null) => {
-  if (!value) {
-    localStorage.removeItem("jwt")
-  } else {
-    localStorage.setItem("jwt", value)
   }
 }
 
-const jwt = (): any | null => {
-  const token = getToken()
-  if (!token) return null
-  const decode = jwtDecode(token)
-  if (!token) return null
-  return decode
+const setJwtToken = (value: string | null) => {
+  if (value) sessionStorage.setItem("jwt", value)
+  else sessionStorage.removeItem("jwt")
+}
+
+const getJwtToken = (): string | null => {
+  return sessionStorage.getItem("jwt")
+}
+
+const parseJwtToken = (value: string): jwtDto => {
+  const token = jwtDecode(value) as any
+  const jwt = new jwtDto(token.Username, token.Roles, token.Id, token.exp)
+  return jwt
+}
+
+const checkExp = (value: jwtDto): boolean => {
+  if (value.exp * 1000 > Date.now()) return true
+  else return false
 }
 
 const isLoggedIn = (): boolean => {
-  if (getToken() && jwt()?.username) return true
+  if (getJwt()) return true
   else return false
 }
 
 const auth = {
-  token: getToken,
-  jwt,
+  getJwt,
   isLoggedIn,
-  setToken
+  getToken: getJwtToken,
+  setToken: setJwtToken
 }
 
 export default auth

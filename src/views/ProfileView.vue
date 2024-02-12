@@ -11,8 +11,6 @@ import ProfileHeader from "@/components/Profile/ProfileHeader.vue"
 import ProfileMain from "@/components/Profile/ProfileMain.vue"
 import ProfileTabs from "@/components/Profile/ProfileTabs.vue"
 import getProfile from "@/network/apis/profile/GetProfile"
-import router from "@/router"
-import auth from "@/stores/auth"
 import { onMounted, ref } from "vue"
 import { onBeforeRouteUpdate } from "vue-router"
 

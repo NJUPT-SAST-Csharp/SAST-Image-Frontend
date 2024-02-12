@@ -1,6 +1,6 @@
 <template>
   <el-form-item>
-    <el-input style="width: 65%; margin-right: 5%" v-model="token" maxlength="6" minlength="6">
+    <el-input style="width: 65%; margin-right: 5%" v-model="code" maxlength="6" minlength="6">
       <template #prepend>
         {{ $t("registerView.token") }}
       </template>
@@ -28,8 +28,8 @@
 <script setup lang="ts">
 import auth from "@/stores/auth"
 import global from "@/stores/global"
-import sendTokenApi from "@/network/apis/account/SendRegisterToken"
-import validateApi from "@/network/apis/account/ValidateRegisterToken"
+import sendCodeApi from "@/network/apis/account/SendRegisterCode"
+import verifyApi from "@/network/apis/account/VerifyRegisterCode"
 import { ref } from "vue"
 import { ElMessage } from "element-plus"
 import { i18n } from "@/locales/i18n"
@@ -38,13 +38,14 @@ const emit = defineEmits(["next", "back"])
 
 const isLoading = ref(false)
 const isCountdown = ref(true)
-const token = ref<string>("")
+const code = ref<string>("")
+const email = sessionStorage.getItem("email") as string
 
 const validate = async () => {
   isLoading.value = true
-  const content = await validateApi(global.email, token.value)
+  const content = await verifyApi(email, code.value)
   if (content.status < 300) {
-    auth.setToken(content.data["token"])
+    sessionStorage.setItem("code", code.value)
     emit("next")
   } else {
     ElMessage.error(i18n.global.t("registerView.validationFailed"))
@@ -54,7 +55,7 @@ const validate = async () => {
 
 const sendToken = async () => {
   isLoading.value = true
-  const content = await sendTokenApi(global.email)
+  const content = await sendCodeApi(email)
   if (content.status < 300) {
     ElMessage.success(i18n.global.t("registerView.sendTokenSuccess"))
     isCountdown.value = true
@@ -63,3 +64,4 @@ const sendToken = async () => {
   isLoading.value = false
 }
 </script>
+@/network/apis/account/VerifyRegisterCode@/network/apis/account/SendRegisterCode
