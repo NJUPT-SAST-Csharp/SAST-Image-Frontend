@@ -35,6 +35,8 @@ declare module 'vue' {
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElSpace: typeof import('element-plus/es')['ElSpace']
+    ElStep: typeof import('element-plus/es')['ElStep']
+    ElSteps: typeof import('element-plus/es')['ElSteps']
     ElSubItem: typeof import('element-plus/es')['ElSubItem']
     ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
@@ -58,11 +60,13 @@ declare module 'vue' {
     RegisterStep: typeof import('./src/components/RegisterSteps/RegisterStep.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SendCodeStep: typeof import('./src/components/RegisterSteps/SendCodeStep.vue')['default']
     SendTokenStep: typeof import('./src/components/RegisterSteps/SendTokenStep.vue')['default']
     SideDrawer: typeof import('./src/components/SideDrawer.vue')['default']
     SideMenu: typeof import('./src/components/SideMenu.vue')['default']
     UploadDialog: typeof import('./src/components/UploadDialog.vue')['default']
     ValidateTokenStep: typeof import('./src/components/RegisterSteps/ValidateTokenStep.vue')['default']
+    VerifyCodeStep: typeof import('./src/components/RegisterSteps/VerifyCodeStep.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
   export interface ComponentCustomProperties {

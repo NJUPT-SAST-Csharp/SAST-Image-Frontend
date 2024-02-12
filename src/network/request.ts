@@ -14,7 +14,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 这里可以进行请求加密等操作。如添加token,cookie，修改数据传输格式等
-    config.headers["Authorization"] = `Bearer ${auth.token()}`
+    config.headers["Authorization"] = `Bearer ${auth.getToken()}`
     return config
   },
   (error) => {

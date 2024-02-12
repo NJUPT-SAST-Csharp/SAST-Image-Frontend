@@ -54,7 +54,7 @@
         </template>
       </el-menu-item>
       <div class="flex-grow" />
-      <el-menu-item index="profile">
+      <el-menu-item index="profile" @click="toProfile">
         <ProfileDiv />
       </el-menu-item>
     </el-menu>
@@ -66,6 +66,7 @@ import { computed, ref } from "vue"
 import ProfileDiv from "./ProfileDiv.vue"
 import MainHomeDiv from "./MainHomeDiv.vue"
 import router from "@/router"
+import auth from "@/stores/auth"
 // 图标定位控制
 const currentView = computed(() => {
   var name = router.currentRoute.value.name
@@ -85,6 +86,7 @@ window.addEventListener("scroll", () => {
 // routers
 const toHome = () => router.push({ path: "/" })
 const toSearch = () => router.push({ name: "search" })
+const toProfile = () => router.push({ path: "/" + auth.jwt()?.username })
 </script>
 
 <style scoped lang="css">
