@@ -2,14 +2,25 @@
   <div id="aside-placeholder" :class="{ detailed: !maincollapsed, brief: maincollapsed }" />
   <div id="menu">
     <el-menu
+      :default-active="currentView"
       :collapse="menuCollapsed"
-      menu-trigger="click"
       :ellipsis="false"
       unique-opened
       close-on-click-outside
     >
-      <el-menu-item index="home" class="item" style="padding: 0%">
-        <MainHomeDiv manual :collapse="maincollapsed" @click="maincollapsed = !maincollapsed" />
+      <el-menu-item
+        index="switch"
+        class="item"
+        style="padding: 0%"
+        @click="maincollapsed = !maincollapsed"
+      >
+        <MainHomeDiv manual :collapse="maincollapsed" />
+      </el-menu-item>
+      <el-menu-item index="home" @click="toHome">
+        <el-icon><House /></el-icon>
+        <template #title>
+          <el-text size="large">{{ $t("menuItem.home") }}</el-text>
+        </template>
       </el-menu-item>
       <el-sub-menu index="explore">
         <template #title>
@@ -64,7 +75,7 @@
 import ProfileDiv from "./ProfileDiv.vue"
 import MainHomeDiv from "./MainHomeDiv.vue"
 import router from "@/router"
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 
 const maincollapsed = ref(true)
 const menuCollapsed = ref(true)
@@ -74,6 +85,12 @@ watch(maincollapsed, (newVal) => {
       menuCollapsed.value = newVal
     }, 0)
   else menuCollapsed.value = false
+})
+
+// icon locate
+const currentView = computed(() => {
+  var name = router.currentRoute.value.name
+  return name
 })
 
 // routers
