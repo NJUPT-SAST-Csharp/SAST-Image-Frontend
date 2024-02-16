@@ -97,7 +97,7 @@ const currentView = computed(() => {
 // routers
 const toHome = () => router.push({ path: "/" })
 const toSearch = () => router.push({ name: "search" })
-const toProfile = () => router.push({ path: "/" + auth.jwt()?.username })
+const toProfile = () => router.push({ path: "/" + auth.getJwt()?.username })
 </script>
 
 <style scoped lang="css">

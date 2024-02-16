@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AsideBar: typeof import('./src/components/MenuBar/AsideBar.vue')['default']
+    ComplementStep: typeof import('./src/components/RegisterSteps/ComplementStep.vue')['default']
     CustomHeaderBar: typeof import('./src/components/HeaderBar/CustomHeaderBar.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']

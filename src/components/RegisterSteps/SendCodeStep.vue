@@ -7,6 +7,7 @@
     </el-input>
   </el-form-item>
   <el-form-item>
+    <span style="width: 50px" />
     <el-button type="info" icon="ArrowLeft" @click="router.push('/login')">
       {{ $t("registerView.backToLogin") }}
     </el-button>
@@ -43,7 +44,7 @@ const sendToken = async () => {
     global.countdown = Date.now() + 1000 * 60
     sessionStorage.setItem("email", email.value)
     emit("next")
-  } else if (content.status == 409) ElMessage.error(i18n.global.t("registerView.emailConflict"))
+  } else if (content.status == 400) ElMessage.error(i18n.global.t("registerView.emailInvalid"))
   else ElMessage.error(i18n.global.t("registerView.sendTokenFailed"))
   isLoading.value = false
 }

@@ -16,6 +16,7 @@
     </el-button>
   </el-form-item>
   <el-form-item>
+    <span style="width: 50px" />
     <el-button type="info" icon="ArrowLeft" @click="$emit('back')">
       {{ $t("registerView.backToChangeEmail") }}
     </el-button>

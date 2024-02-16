@@ -5,15 +5,24 @@
         <img src="../assets/logo.png" height="24" />
       </div>
     </template>
-    <el-steps align-center :active="step - 1">
+    <el-steps align-center :active="step - 1" v-if="step < 4">
       <el-step title="Send" :icon="Message" />
       <el-step title="Validate" :icon="Key" />
       <el-step title="Create" :icon="Edit" />
     </el-steps>
-    <el-form inline class="card-body" @keydown.enter.prevent>
+    <div v-if="step == 4">
+      <div>
+        <el-text size="large" type="success">Congratulations!</el-text>
+      </div>
+      <div>
+        <el-text size="large" type="primary">{{ $t("registerView.complementRequest") }}</el-text>
+      </div>
+    </div>
+    <el-form class="card-body" @keydown.enter.prevent>
       <SendCodeStep v-if="step == 1" @next="step = 2" />
       <VerifyCodeStep v-else-if="step == 2" @back="step = 1" @next="step = 3" />
-      <RegisterStep v-else-if="step == 3" @success="success" />
+      <RegisterStep v-else-if="step == 3" @success="registerSuccess" />
+      <ComplementStep v-else @success="complementSuccess" />
     </el-form>
   </el-card>
 </template>
@@ -25,12 +34,16 @@ import SendCodeStep from "@/components/RegisterSteps/SendCodeStep.vue"
 import VerifyCodeStep from "@/components/RegisterSteps/VerifyCodeStep.vue"
 import RegisterStep from "@/components/RegisterSteps/RegisterStep.vue"
 import router from "@/router"
-import auth from "@/stores/auth"
 import { Message, Key, Edit } from "@element-plus/icons-vue"
+import ComplementStep from "@/components/RegisterSteps/ComplementStep.vue"
 
 const step = ref(1)
 
-const success = () => {
+const registerSuccess = () => {
+  step.value = 4
+}
+
+const complementSuccess = () => {
   router.push("/login")
 }
 </script>

@@ -14,6 +14,7 @@
     </el-input>
   </el-form-item>
   <el-form-item>
+    <span style="width: 120px" />
     <el-button type="primary" @click="register" :loading="isLoading">
       {{ $t("action.confirm") }}
     </el-button>
@@ -42,12 +43,12 @@ const register = async () => {
   const content = await registerApi(dto.value)
   if (content.status < 300) {
     ElMessage.success(i18n.global.t("registerView.registerSuccess"))
-    auth.setToken(content.data["token"])
+    auth.setToken(content.data["jwt"])
     sessionStorage.removeItem("email")
     sessionStorage.removeItem("code")
     emits("success")
-  } else if (content.status == 409) {
-    ElMessage.error(i18n.global.t("registerView.nameConflict"))
+  } else if (content.status == 400) {
+    ElMessage.error(i18n.global.t("registerView.nameInvalid"))
   } else {
     ElMessage.error(i18n.global.t("registerView.registerFailed"))
   }
