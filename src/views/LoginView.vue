@@ -58,7 +58,7 @@ const login = async () => {
   } else {
     auth.setToken(response.data["jwt"])
     ElMessage.success(i18n.global.t("loginView.loginSuccess"))
-    router.push({ name: "profile", params: { username: auth.getJwt()?.username } })
+    router.push({ name: "profile", params: { username: auth.jwtDto.value?.username } })
   }
 }
 </script>

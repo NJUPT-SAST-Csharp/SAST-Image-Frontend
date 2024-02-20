@@ -1,4 +1,5 @@
 import jwtDecode from "jwt-decode"
+import { ref } from "vue"
 
 class jwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
@@ -13,7 +14,9 @@ class jwtDto {
   exp: number
 }
 
-const getJwt = (): jwtDto | null => {
+const globalJwtDto = ref<jwtDto | null>(null)
+
+const getJwtDto = (): jwtDto | null => {
   const token = getJwtToken()
   if (!token) return null
   const dto = parseJwtToken(token)
@@ -27,8 +30,13 @@ const getJwt = (): jwtDto | null => {
 }
 
 const setJwtToken = (value: string | null) => {
-  if (value) sessionStorage.setItem("jwt", value)
-  else sessionStorage.removeItem("jwt")
+  if (value) {
+    sessionStorage.setItem("jwt", value)
+    globalJwtDto.value = parseJwtToken(value)
+  } else {
+    sessionStorage.removeItem("jwt")
+    globalJwtDto.value = null
+  }
 }
 
 const getJwtToken = (): string | null => {
@@ -41,19 +49,23 @@ const parseJwtToken = (value: string): jwtDto => {
   return jwt
 }
 
-const checkExp = (value: jwtDto): boolean => {
+const checkExp = (value: jwtDto | null): boolean => {
+  if (value == null) return false
   if (value.exp * 1000 > Date.now()) return true
   else return false
 }
 
 const isLoggedIn = (): boolean => {
-  if (getJwt()) return true
-  else return false
+  if (checkExp(globalJwtDto.value)) return true
+  else {
+    setJwtToken(null)
+    return false
+  }
 }
 
 const auth = {
-  getJwt,
   isLoggedIn,
+  jwtDto: globalJwtDto,
   getToken: getJwtToken,
   setToken: setJwtToken
 }

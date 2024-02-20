@@ -111,11 +111,7 @@ const save = async () => {
     value.value = false
     return
   }
-  const response = await updateProfile(
-    editContent.value.nickname,
-    editContent.value.biography,
-    editContent.value.website
-  )
+  const response = await updateProfile(editContent.value.nickname, editContent.value.biography)
   if (response.status < 300) {
     uploadSuccess()
     location.reload()
