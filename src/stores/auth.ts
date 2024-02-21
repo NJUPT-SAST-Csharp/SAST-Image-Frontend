@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode"
-import { ref } from "vue"
+import { computed, ref } from "vue"
 
 class jwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
@@ -14,7 +14,15 @@ class jwtDto {
   exp: number
 }
 
-const globalJwtDto = ref<jwtDto | null>(null)
+const internalJwtDto = ref<jwtDto | null>(null)
+
+const globalJwtDto = computed<jwtDto | null>(() => {
+  if (internalJwtDto.value == null) {
+    const dto = getJwtDto()
+    internalJwtDto.value = dto
+  }
+  return internalJwtDto.value
+})
 
 const getJwtDto = (): jwtDto | null => {
   const token = getJwtToken()
@@ -32,10 +40,11 @@ const getJwtDto = (): jwtDto | null => {
 const setJwtToken = (value: string | null) => {
   if (value) {
     sessionStorage.setItem("jwt", value)
-    globalJwtDto.value = parseJwtToken(value)
+    internalJwtDto.value = parseJwtToken(value)
   } else {
+    console.log("Removing jwt token")
     sessionStorage.removeItem("jwt")
-    globalJwtDto.value = null
+    internalJwtDto.value = null
   }
 }
 
@@ -58,7 +67,6 @@ const checkExp = (value: jwtDto | null): boolean => {
 const isLoggedIn = (): boolean => {
   if (checkExp(globalJwtDto.value)) return true
   else {
-    setJwtToken(null)
     return false
   }
 }
