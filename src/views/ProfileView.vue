@@ -17,10 +17,11 @@ import { onBeforeRouteUpdate } from "vue-router"
 export interface ProfileContent {
   username: string
   nickname: string
-  biography: string | null
+  biography: string
   avatar: string | null
   header: string | null
   website: string | null
+  birthday: string | null
 }
 
 const props = defineProps<{ username: string }>()

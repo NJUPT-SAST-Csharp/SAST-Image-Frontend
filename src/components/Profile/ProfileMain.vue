@@ -6,7 +6,7 @@
       </el-avatar>
     </div>
     <div class="edit-button">
-      <div v-if="auth.jwt()?.sub == content.username">
+      <div v-if="auth.jwtDto.value?.username == content.username">
         <el-button icon="Edit" @click="isEdit = !isEdit">
           {{ $t("profileView.edit.profile") }}
         </el-button>
@@ -15,7 +15,7 @@
         </el-button>
       </div>
       <ProfileEditDialog
-        v-if="auth.jwt()?.sub == content.username"
+        v-if="auth.jwtDto.value?.username == content.username"
         v-model="isEdit"
         :content="content"
       />

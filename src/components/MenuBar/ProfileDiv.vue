@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import auth from "@/stores/auth"
-import getProfile from "@/network/apis/profile/GetProfile"
 import { computed, onMounted, ref } from "vue"
+import getProfile from "@/network/apis/profile/GetProfile"
 
 // 是否展开
 const props = defineProps({
@@ -23,6 +23,7 @@ const props = defineProps({
 })
 
 const avatarSrc = ref("")
+
 onMounted(async () => {
   if (auth.isLoggedIn()) {
     const content = await getProfile(auth.jwtDto.value?.username!, false)
