@@ -11,8 +11,14 @@ import ProfileHeader from "@/components/Profile/ProfileHeader.vue"
 import ProfileMain from "@/components/Profile/ProfileMain.vue"
 import ProfileTabs from "@/components/Profile/ProfileTabs.vue"
 import getProfile from "@/network/apis/profile/GetProfile"
+import auth from "@/stores/auth"
+import profile, { type ProfileDto } from "@/stores/profile"
 import { onMounted, ref } from "vue"
 import { onBeforeRouteUpdate } from "vue-router"
+
+const props = defineProps<{ username: string }>()
+
+const content = ref<ProfileContent>()
 
 export interface ProfileContent {
   username: string
@@ -23,10 +29,6 @@ export interface ProfileContent {
   website: string | null
   birthday: string | null
 }
-
-const props = defineProps<{ username: string }>()
-
-const content = ref<ProfileContent>()
 
 onMounted(async () => {
   const response = await getProfile(props.username, true)

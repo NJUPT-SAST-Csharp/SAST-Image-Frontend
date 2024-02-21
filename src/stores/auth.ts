@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode"
 import { computed, ref } from "vue"
 
-class jwtDto {
+class JwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
     this.username = username
     this.roles = roles
@@ -14,9 +14,9 @@ class jwtDto {
   exp: number
 }
 
-const internalJwtDto = ref<jwtDto | null>(null)
+const internalJwtDto = ref<JwtDto | null>(null)
 
-const globalJwtDto = computed<jwtDto | null>(() => {
+const globalJwtDto = computed<JwtDto | null>(() => {
   if (internalJwtDto.value == null) {
     const dto = getJwtDto()
     internalJwtDto.value = dto
@@ -24,7 +24,7 @@ const globalJwtDto = computed<jwtDto | null>(() => {
   return internalJwtDto.value
 })
 
-const getJwtDto = (): jwtDto | null => {
+const getJwtDto = (): JwtDto | null => {
   const token = getJwtToken()
   if (!token) return null
   const dto = parseJwtToken(token)
@@ -52,13 +52,13 @@ const getJwtToken = (): string | null => {
   return sessionStorage.getItem("jwt")
 }
 
-const parseJwtToken = (value: string): jwtDto => {
+const parseJwtToken = (value: string): JwtDto => {
   const token = jwtDecode(value) as any
-  const jwt = new jwtDto(token.Username, token.Roles, token.Id, token.exp)
+  const jwt = new JwtDto(token.Username, token.Roles, token.Id, token.exp)
   return jwt
 }
 
-const checkExp = (value: jwtDto | null): boolean => {
+const checkExp = (value: JwtDto | null): boolean => {
   if (value == null) return false
   if (value.exp * 1000 > Date.now()) return true
   else return false
@@ -72,6 +72,7 @@ const isLoggedIn = (): boolean => {
 }
 
 const auth = {
+  checkLogin: checkExp(globalJwtDto.value),
   isLoggedIn,
   jwtDto: globalJwtDto,
   getToken: getJwtToken,

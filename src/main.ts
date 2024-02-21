@@ -5,7 +5,7 @@ import "element-plus/theme-chalk/el-notification.css"
 import "element-plus/theme-chalk/el-message-box.css"
 
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
-import { createApp, reactive } from "vue"
+import { createApp } from "vue"
 import { createPinia } from "pinia"
 import { i18n } from "./locales/i18n"
 import App from "./App.vue"

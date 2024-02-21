@@ -45,6 +45,9 @@ import { ElMessage } from "element-plus"
 import loginApi from "../network/apis/account/Login"
 import auth from "../stores/auth"
 import router from "@/router"
+import getProfile from "@/network/apis/profile/GetProfile"
+import type { ProfileDto } from "@/stores/profile"
+import profile from "@/stores/profile"
 
 const isLoading = ref(false)
 const loginDto = ref({ username: "", password: "" })
@@ -58,6 +61,10 @@ const login = async () => {
   } else {
     auth.setToken(response.data["jwt"])
     ElMessage.success(i18n.global.t("loginView.loginSuccess"))
+    const profileResponse = await getProfile(auth.jwtDto.value?.username!)
+    if (profileResponse.status < 300) {
+      profile.setProfile(profileResponse.data as ProfileDto)
+    }
     router.push({ name: "profile", params: { username: auth.jwtDto.value?.username } })
   }
 }

@@ -8,12 +8,7 @@
       unique-opened
       close-on-click-outside
     >
-      <el-menu-item
-        index="switch"
-        class="item"
-        style="padding: 0%"
-        @click="maincollapsed = !maincollapsed"
-      >
+      <el-menu-item index="switch" style="padding: 0%" @click="maincollapsed = !maincollapsed">
         <MainHomeDiv manual :collapse="maincollapsed" />
       </el-menu-item>
       <el-menu-item index="home" @click="toHome">
@@ -77,9 +72,11 @@ import MainHomeDiv from "./MainHomeDiv.vue"
 import router from "@/router"
 import { computed, ref, watch } from "vue"
 import auth from "@/stores/auth"
+import "element-plus/theme-chalk/display.css"
 
 const maincollapsed = ref(true)
 const menuCollapsed = ref(true)
+
 watch(maincollapsed, (newVal) => {
   if (newVal)
     setTimeout(() => {

@@ -1,39 +1,23 @@
 <template>
   <div class="profile-div" :class="{ briefProfile: props.manual && props.collapse }">
     <span id="avatar-span">
-      <el-avatar :src="avatarSrc" fit="cover">
+      <el-avatar :src="profile.avatar.value" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
       </el-avatar>
     </span>
     <el-text id="username" :class="{ briefUsername: props.manual && props.collapse }" truncated>
-      {{ auth.isLoggedIn() ? auth.jwtDto.value?.username : $t("loginView.login") }}
+      {{ profile.username.value ?? $t("loginView.login") }}
     </el-text>
   </div>
 </template>
 
 <script setup lang="ts">
-import auth from "@/stores/auth"
-import { computed, onMounted, ref } from "vue"
-import getProfile from "@/network/apis/profile/GetProfile"
+import profile from "@/stores/profile"
 
 // 是否展开
 const props = defineProps({
   manual: { type: Boolean, required: false },
   collapse: { type: Boolean, required: false }
-})
-
-const avatarSrc = ref("")
-
-onMounted(async () => {
-  if (auth.isLoggedIn()) {
-    const content = await getProfile(auth.jwtDto.value?.username!, false)
-    if (content.status == 200) avatarSrc.value = content.data["avatar"]
-  }
-})
-
-const profileItemRouterPath = computed(() => {
-  if (auth.isLoggedIn()) return "/" + auth.jwtDto.value?.username!
-  else return "/login"
 })
 </script>
 
