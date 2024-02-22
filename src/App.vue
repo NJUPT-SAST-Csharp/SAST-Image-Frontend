@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex">
-    <AsideBar class="hidden-sm-and-down" />
+    <AsideBar />
     <el-container>
       <HeaderBar id="header-bar" />
       <el-main>

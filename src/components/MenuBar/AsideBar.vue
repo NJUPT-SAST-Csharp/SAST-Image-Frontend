@@ -1,15 +1,17 @@
 <template>
-  <div id="aside-placeholder" :class="{ detailed: !maincollapsed, brief: maincollapsed }" />
-  <div id="menu">
+  <div class="placeholder hidden-sm-and-down" :style="{ 'min-width': width + 'px' }" />
+  <div id="menu" class="hidden-sm-and-down" :style="{ width: width + 'px' }">
     <el-menu
       :default-active="currentView"
-      :collapse="menuCollapsed"
+      :collapse="collapsed"
       :ellipsis="false"
+      :collapse-transition="false"
       unique-opened
       close-on-click-outside
+      :style="{ 'min-width': width + 'px' }"
     >
-      <el-menu-item index="switch" style="padding: 0%" @click="maincollapsed = !maincollapsed">
-        <MainHomeDiv manual :collapse="maincollapsed" />
+      <el-menu-item index="switch" style="padding: 0%" @click="collapsed = !collapsed">
+        <MainHomeDiv manual :collapse="collapsed" />
       </el-menu-item>
       <el-menu-item index="home" @click="toHome">
         <el-icon><House /></el-icon>
@@ -60,8 +62,9 @@
         </template>
       </el-menu-item>
       <el-menu-item index="profile" style="padding: 0%" @click="toProfile">
-        <ProfileDiv manual :collapse="maincollapsed" />
+        <ProfileDiv manual :collapse="collapsed" />
       </el-menu-item>
+      <li class="placeholder" :style="{ 'min-width': width + 'px' }"></li>
     </el-menu>
   </div>
 </template>
@@ -74,15 +77,14 @@ import { computed, ref, watch } from "vue"
 import auth from "@/stores/auth"
 import "element-plus/theme-chalk/display.css"
 
-const maincollapsed = ref(true)
-const menuCollapsed = ref(true)
+const collapsed = ref(true)
 
-watch(maincollapsed, (newVal) => {
-  if (newVal)
-    setTimeout(() => {
-      menuCollapsed.value = newVal
-    }, 0)
-  else menuCollapsed.value = false
+const width = ref<number>(64)
+
+watch(collapsed, (newVal) => {
+  setTimeout(() => {
+    width.value = newVal ? 65 : 180
+  }, 0)
 })
 
 // icon locate
@@ -99,17 +101,26 @@ const toProfile = () => router.push({ path: "/" + auth.jwtDto.value?.username })
 
 <style scoped lang="css">
 #menu {
-  flex-grow: 1;
-  max-width: 180px;
-  width: fit-content;
   position: fixed;
   height: 100%;
   display: flex;
+  overflow: hidden;
+  transition:
+    width 1s ease,
+    min-width 1s ease;
 }
 
-#aside-placeholder {
-  flex-grow: 1;
-  transition: width 0.5s ease;
+.el-menu {
+  transition: min-width 1s ease;
+}
+
+.el-menu--collapse {
+  transition: min-width 1s ease;
+}
+
+.placeholder {
+  transition: min-width 1s ease;
+  height: 100%;
 }
 
 @media screen and (max-width: 62rem) {
@@ -125,20 +136,5 @@ const toProfile = () => router.push({ path: "/" + auth.jwtDto.value?.username })
   #aside-placeholder {
     width: 72px;
   }
-}
-
-.flex-grow {
-  flex-grow: 1;
-}
-.icon {
-  margin: auto;
-}
-
-.detailed {
-  width: 200px;
-}
-
-.brief {
-  width: 72px;
 }
 </style>

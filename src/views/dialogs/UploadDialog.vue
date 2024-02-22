@@ -36,10 +36,10 @@
 <script setup lang="ts">
 import { ElNotification } from "element-plus"
 import { computed, ref } from "vue"
-import { i18n } from "@/locales/i18n"
+import { i18n } from "../../locales/i18n"
 import { type UploadRawFile, type UploadRequestOptions } from "element-plus"
-import uploadImageApi from "@/network/apis/image/UploadImage"
-import auth from "@/stores/auth"
+import uploadImageApi from "../../network/apis/image/UploadImage"
+import auth from "../../stores/auth"
 const uploadRef = ref()
 
 interface ImageData {
@@ -64,7 +64,7 @@ const httpRequest = async (options: UploadRequestOptions) => {
     tags: [""]
   }
 
-  const response = await uploadImageApi(auth.jwt()?.sub!, file)
+  const response = await uploadImageApi(auth.jwtDto.value?.username!, file)
   if (response.status < 300) {
     ElNotification.success({
       duration: 3000,

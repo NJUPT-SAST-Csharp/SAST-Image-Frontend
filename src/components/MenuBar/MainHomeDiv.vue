@@ -31,6 +31,7 @@ const props = defineProps({
 <style scoped lang="css">
 #logo-div {
   display: flex;
+  overflow: hidden;
   margin: auto;
 }
 
