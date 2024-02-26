@@ -1,12 +1,12 @@
 <template>
   <div class="profile-div" :class="{ briefProfile: props.manual && props.collapse }">
     <span id="avatar-span">
-      <el-avatar :src="profile.avatar.value" fit="cover">
+      <el-avatar :src="profile.getProfile().value?.avatar" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
       </el-avatar>
     </span>
     <el-text id="username" :class="{ briefUsername: props.manual && props.collapse }" truncated>
-      {{ profile.username.value ?? $t("loginView.login") }}
+      {{ profile.getProfile().value?.nickname ?? $t("loginView.login") }}
     </el-text>
   </div>
 </template>

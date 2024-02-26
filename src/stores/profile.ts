@@ -1,36 +1,39 @@
-import { computed, reactive, ref } from "vue"
-import auth from "./auth"
+import { ref, type Ref } from "vue"
 
-interface ProfileDto {
+interface ProfileContent {
   username: string
   nickname: string
-  avatar: string
+  biography: string
+  avatar: string | null
+  header: string | null
+  website: string | null
+  birthday: string | null
 }
 
-function setProfile(profile: ProfileDto | null) {
-  avatar.value = profile?.avatar ?? null
-  username.value = profile?.username ?? null
-  nickname.value = profile?.nickname ?? null
-  if (profile) {
-    sessionStorage.setItem("profile", JSON.stringify(profile))
-  }
-}
-
-function init(): ProfileDto | null {
-  const profile = sessionStorage.getItem("profile")
+const init = (): ProfileContent | null => {
+  const profile = localStorage.getItem("profile")
   return profile ? JSON.parse(profile) : null
 }
 
-const avatar = ref<string | null>(init()?.avatar ?? null)
-const username = ref<string | null>(init()?.username ?? null)
-const nickname = ref<string | null>(init()?.username ?? null)
+const globalProfile = ref<ProfileContent | null>(init())
 
-const profile = {
-  setProfile,
-  avatar,
-  username,
-  nickname
+const getProfile = (): Ref<ProfileContent | null> => {
+  return globalProfile
 }
 
-export type { ProfileDto }
+function setProfile(profile: ProfileContent | null) {
+  globalProfile.value = profile
+  if (profile) {
+    localStorage.setItem("profile", JSON.stringify(profile))
+  } else {
+    localStorage.removeItem("profile")
+  }
+}
+
+const profile = {
+  getProfile,
+  setProfile
+}
+
+export type { ProfileContent }
 export default profile

@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode"
 import { computed, ref } from "vue"
+import profile from "./profile"
 
 class JwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
@@ -39,17 +40,17 @@ const getJwtDto = (): JwtDto | null => {
 
 const setJwtToken = (value: string | null) => {
   if (value) {
-    sessionStorage.setItem("jwt", value)
+    localStorage.setItem("jwt", value)
     internalJwtDto.value = parseJwtToken(value)
   } else {
-    console.log("Removing jwt token")
-    sessionStorage.removeItem("jwt")
+    localStorage.removeItem("jwt")
+    profile.setProfile(null)
     internalJwtDto.value = null
   }
 }
 
 const getJwtToken = (): string | null => {
-  return sessionStorage.getItem("jwt")
+  return localStorage.getItem("jwt")
 }
 
 const parseJwtToken = (value: string): JwtDto => {
@@ -59,9 +60,7 @@ const parseJwtToken = (value: string): JwtDto => {
 }
 
 const checkExp = (value: JwtDto | null): boolean => {
-  if (value == null) return false
-  if (value.exp * 1000 > Date.now()) return true
-  else return false
+  return value != null && value.exp * 1000 > Date.now()
 }
 
 const isLoggedIn = (): boolean => {

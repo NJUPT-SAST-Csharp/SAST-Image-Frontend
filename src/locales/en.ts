@@ -31,7 +31,7 @@ const profileView = {
     header: "Edit Header",
     avatar: "Edit Avatar",
     upload: {
-      exceed: "Picture size can not exceed 3MB!",
+      exceed: "Picture size can not exceed 10MB!",
       fail: "Upload failed.",
       success: "Upload success.",
       formatError: "The file to be uploaded must be a picture."
@@ -43,9 +43,10 @@ const profileView = {
     likes: "Likes"
   },
   profileItems: {
-    nickname: "NickName",
+    nickname: "Nickname",
     biography: "Biography",
-    website: "Website"
+    website: "Website",
+    birthday: "Birthday"
   }
 }
 
@@ -95,6 +96,10 @@ const menuItem = {
 }
 
 export const EN = {
+  updateHeader: "Update Header",
+  headerFileExceed: "The file size can not exceed 10MB!",
+  avatarFileExceed: "The file size can not exceed 5MB!",
+  imageFormatError: "The file to be uploaded must be a picture.",
   title: "I am SastImg",
   action,
   message,

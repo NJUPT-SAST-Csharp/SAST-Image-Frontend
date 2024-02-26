@@ -34,10 +34,12 @@ const emit = defineEmits(["success", "skip"])
 
 const dto = ref({
   nickname: "",
-  biography: ""
+  biography: "",
+  website: null,
+  birthday: null
 })
 
 const confirm = async () => {
-  await updateProfile(dto.value.nickname, dto.value.biography)
+  await updateProfile(dto.value)
 }
 </script>

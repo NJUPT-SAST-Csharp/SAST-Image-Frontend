@@ -1,8 +1,15 @@
 import request from "../../request"
 
-async function updateProfile(nickname: string, biography: string | null) {
-  const content = await request.put("/api/sns/user/profile", { nickname, biography })
+async function updateProfile(profile: UpdateProfileDto) {
+  const content = await request.put("/api/account/user/profile", profile)
   return content
+}
+
+interface UpdateProfileDto {
+  nickname: string
+  biography: string | null
+  birthday: string | null
+  website: string | null
 }
 
 export default updateProfile
