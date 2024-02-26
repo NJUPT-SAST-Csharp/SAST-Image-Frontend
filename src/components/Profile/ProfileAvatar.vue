@@ -1,6 +1,6 @@
 <template>
   <div class="avatar">
-    <el-upload
+    <ElUpload
       v-if="isEditable"
       ref="avatarRef"
       name="avatarFile"
@@ -15,14 +15,14 @@
       <ElAvatar :size="120" fit="cover" :src="props.src" class="edit-block">
         <img src="../../assets/avatar.png" />
       </ElAvatar>
-      <el-icon :size="30" color="#409EFC" class="edit-icon">
+      <ElIcon :size="30" color="#409EFC" class="edit-icon">
         <Edit />
-      </el-icon>
-    </el-upload>
+      </ElIcon>
+    </ElUpload>
     <div v-else>
-      <el-avatar :size="120" fit="cover" :src="props.src">
+      <ElAvatar :size="120" fit="cover" :src="props.src">
         <img src="../assets/avatar.png" />
-      </el-avatar>
+      </ElAvatar>
     </div>
   </div>
 </template>

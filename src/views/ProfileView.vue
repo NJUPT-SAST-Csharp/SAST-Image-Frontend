@@ -1,7 +1,7 @@
 <template>
   <div>
     <ProfileHeader
-      :src="content?.header ?? null"
+      :src="content?.header ?? ''"
       :isEditable="isEditable"
       @updated="content!.header = content!.header"
     />
@@ -30,10 +30,9 @@ const content = ref<ProfileContent | null>(null);
 const isEditable = ref<boolean>(false);
 
 onMounted(async () => {
-  content.value = (await getProfile(props.username, true).then(
-    (t) => t.data,
-  )) as ProfileContent;
-  if (content.value.username == auth.jwtDto.value?.username) {
+  const result = await getProfile(props.username, true);
+  content.value = result.data;
+  if (content.value?.username == auth.jwtDto.value?.username) {
     profile.setProfile(content.value);
     isEditable.value = true;
   }

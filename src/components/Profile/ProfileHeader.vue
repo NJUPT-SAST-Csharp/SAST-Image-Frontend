@@ -13,16 +13,16 @@
     <el-image
       :style="{
         width: 100 + '%',
-        height: 50 + 'vh',
+        height: isEmpty ? 80 + 'px' : 50 + 'vh',
         display: isLoading ? 'none' : 'block',
       }"
       :src="props.src"
       fit="cover"
       @error="loadFail"
-      @load="isLoading = false"
+      @load="loadSuccess"
     >
       <template #error>
-        <div></div>
+        <div />
       </template>
     </el-image>
     <el-upload
@@ -60,6 +60,11 @@ const isEmpty = ref(false);
 const loadFail = () => {
   isLoading.value = false;
   isEmpty.value = true;
+};
+
+const loadSuccess = () => {
+  isLoading.value = false;
+  isEmpty.value = false;
 };
 
 const headerRef = ref<UploadInstance>();
