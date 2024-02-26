@@ -71,7 +71,6 @@ const isLoggedIn = (): boolean => {
 };
 
 const auth = {
-  checkLogin: checkExp(globalJwtDto.value),
   isLoggedIn,
   jwtDto: globalJwtDto,
   getToken: getJwtToken,
