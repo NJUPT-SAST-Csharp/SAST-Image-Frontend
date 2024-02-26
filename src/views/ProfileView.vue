@@ -1,12 +1,13 @@
 <template>
   <div>
-    <ProfileHeader
-      :src="content?.header ?? ''"
-      :isEditable="isEditable"
-      @updated="content!.header = content!.header"
-    />
+    <ProfileHeader :src="content?.header ?? ''" :isEditable="isEditable" />
+    <div>{{ content }}</div>
     <div class="main-frame">
-      <ProfileAvatar :src="content?.avatar!" :isEditable="isEditable" />
+      <ProfileAvatar
+        :src="content?.avatar!"
+        :isEditable="isEditable"
+        @updated="fetchData"
+      />
       <ProfileInfo v-if="content" :content="content" />
     </div>
     <ProfileTabs />
@@ -26,17 +27,20 @@ import { onMounted, ref } from "vue";
 const props = defineProps<{ username: string }>();
 
 const content = ref<ProfileContent | null>(null);
-
 const isEditable = ref<boolean>(false);
 
 onMounted(async () => {
+  await fetchData();
+});
+
+const fetchData = async () => {
   const result = await getProfile(props.username, true);
   content.value = result.data;
   if (content.value?.username == auth.jwtDto.value?.username) {
     profile.setProfile(content.value);
     isEditable.value = true;
   }
-});
+};
 </script>
 
 <style scoped lang="css">

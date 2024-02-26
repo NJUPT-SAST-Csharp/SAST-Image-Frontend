@@ -97,9 +97,12 @@ const menuItem = {
 
 export const EN = {
   updateHeader: "Update Header",
+  uploadSuccess: "Upload Success",
+  uploadFail: "Upload Failed",
   headerFileExceed: "The file size can not exceed 10MB!",
   avatarFileExceed: "The file size can not exceed 5MB!",
   imageFormatError: "The file to be uploaded must be a picture.",
+
   title: "I am SastImg",
   action,
   message,

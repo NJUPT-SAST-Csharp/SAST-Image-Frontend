@@ -1,4 +1,5 @@
 <template>
+  {{ src }}
   <div class="avatar">
     <ElUpload
       v-if="isEditable"
@@ -12,7 +13,12 @@
       :headers="uploadHeaders"
       :show-file-list="false"
     >
-      <ElAvatar :size="120" fit="cover" :src="props.src" class="edit-block">
+      <ElAvatar
+        :size="120"
+        fit="cover"
+        :src="`${src}?${refreshHook}`"
+        class="edit-block"
+      >
         <img src="@/assets/avatar.png" />
       </ElAvatar>
       <ElIcon :size="30" color="#409EFC" class="edit-icon">
@@ -20,7 +26,7 @@
       </ElIcon>
     </ElUpload>
     <div v-else>
-      <ElAvatar :size="120" fit="cover" :src="props.src">
+      <ElAvatar :size="120" fit="cover" :src="src">
         <img src="@/assets/avatar.png" />
       </ElAvatar>
     </div>
@@ -30,9 +36,14 @@
 <script setup lang="ts">
 import { i18n } from "@/locales/i18n";
 import auth from "@/stores/auth";
+import profile from "@/stores/profile";
 import { ElMessage, type UploadProps } from "element-plus";
+import { ref } from "vue";
 
-const props = defineProps<{ src: string | null; isEditable: boolean }>();
+defineProps<{ src: string | null; isEditable: boolean }>();
+
+const refreshHook = ref(Date.now());
+
 const emit = defineEmits(["updated"]);
 
 const uploadHeaders = {
@@ -51,12 +62,13 @@ const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
 };
 
 const uploadSuccess = () => {
-  ElMessage.success(i18n.global.t("profileView.edit.upload.success"));
+  ElMessage.success(i18n.global.t("uploadSuccess"));
   emit("updated");
+  refreshHook.value = Date.now();
+  profile.refresh();
 };
 
-const uploadFail = () =>
-  ElMessage.error(i18n.global.t("profileView.edit.upload.fail"));
+const uploadFail = () => ElMessage.error(i18n.global.t("uploadFail"));
 </script>
 
 <style scoped lang="css">

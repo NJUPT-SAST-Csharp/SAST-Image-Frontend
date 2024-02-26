@@ -30,7 +30,29 @@ function setProfile(profile: ProfileContent | null) {
   }
 }
 
+function refresh() {
+  const avatar = globalProfile.value?.avatar;
+  const header = globalProfile.value?.header;
+  globalProfile.value = init();
+  if (avatar) {
+    if (avatar.includes("?")) {
+      globalProfile.value!.avatar = avatar.split("?")[0] + `?${Date.now()}`;
+    } else {
+      globalProfile.value!.avatar = avatar + `?${Date.now()}`;
+    }
+  }
+  if (header) {
+    if (header.includes("?")) {
+      globalProfile.value!.header = header.split("?")[0] + `?${Date.now()}`;
+    } else {
+      globalProfile.value!.header = header + `?${Date.now()}`;
+    }
+  }
+  setProfile(globalProfile.value);
+}
+
 const profile = {
+  refresh,
   getProfile,
   setProfile,
 };

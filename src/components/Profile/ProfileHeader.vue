@@ -11,7 +11,7 @@
         height: isEmpty ? 80 + 'px' : 50 + 'vh',
         display: isLoading ? 'none' : 'block',
       }"
-      :src="props.src"
+      :src="props.src + '?' + refreshHook"
       fit="cover"
       @error="loadFail"
       @load="loadSuccess"
@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import App from "@/App.vue";
 import { i18n } from "@/locales/i18n";
 import auth from "@/stores/auth";
 import { type UploadProps, type UploadInstance, ElMessage } from "element-plus";
@@ -47,10 +48,9 @@ import { ref } from "vue";
 
 const props = defineProps<{ src: string | null; isEditable: boolean }>();
 
-const emit = defineEmits(["updated"]);
-
 const isLoading = ref(true);
 const isEmpty = ref(false);
+const refreshHook = ref<number>(Date.now());
 
 const loadFail = () => {
   isLoading.value = false;
@@ -80,12 +80,11 @@ const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
 };
 
 const uploadSuccess = () => {
-  ElMessage.success(i18n.global.t("profileView.edit.upload.success"));
-  emit("updated");
+  ElMessage.success(i18n.global.t("uploadSuccess"));
+  refreshHook.value = Date.now();
 };
 
-const uploadFail = () =>
-  ElMessage.error(i18n.global.t("profileView.edit.upload.fail"));
+const uploadFail = () => ElMessage.error(i18n.global.t("uploadFail"));
 </script>
 
 <style scoped>
