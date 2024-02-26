@@ -14,7 +14,9 @@
       <el-sub-menu index="explore">
         <template #title>
           <el-icon><Guide /></el-icon>
-          <el-text class="hidden-xs-only" size="large">{{ $t("menuItem.explore") }}</el-text>
+          <el-text class="hidden-xs-only" size="large">{{
+            $t("menuItem.explore")
+          }}</el-text>
         </template>
         <el-menu-item index="2-1">
           <template #title>
@@ -44,13 +46,17 @@
       <el-menu-item index="search" @click="toSearch">
         <el-icon><Search /></el-icon>
         <template #title>
-          <el-text class="hidden-xs-only" size="large">{{ $t("menuItem.search") }}</el-text>
+          <el-text class="hidden-xs-only" size="large">{{
+            $t("menuItem.search")
+          }}</el-text>
         </template>
       </el-menu-item>
       <el-menu-item index="upload">
         <el-icon><Upload /></el-icon>
         <template #title>
-          <el-text class="hidden-xs-only" size="large">{{ $t("action.upload") }}</el-text>
+          <el-text class="hidden-xs-only" size="large">{{
+            $t("action.upload")
+          }}</el-text>
         </template>
       </el-menu-item>
       <div class="flex-grow" />
@@ -62,31 +68,32 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue"
-import ProfileDiv from "./ProfileDiv.vue"
-import MainHomeDiv from "./MainHomeDiv.vue"
-import router from "@/router"
-import auth from "@/stores/auth"
+import { computed, ref } from "vue";
+import ProfileDiv from "./ProfileDiv.vue";
+import MainHomeDiv from "./MainHomeDiv.vue";
+import router from "@/router";
+import auth from "@/stores/auth";
 // 图标定位控制
 const currentView = computed(() => {
-  var name = router.currentRoute.value.name
-  return name
-})
+  var name = router.currentRoute.value.name;
+  return name;
+});
 
 // 是否显示
-const display = ref(true)
-let scrollValue = 0
+const display = ref(true);
+let scrollValue = 0;
 window.addEventListener("scroll", () => {
-  const offset = document.documentElement.scrollTop - scrollValue
-  if (offset > 5 && scrollValue > 500) display.value = false
-  else if (offset < -5) display.value = true
-  scrollValue = document.documentElement.scrollTop
-})
+  const offset = document.documentElement.scrollTop - scrollValue;
+  if (offset > 5 && scrollValue > 500) display.value = false;
+  else if (offset < -5) display.value = true;
+  scrollValue = document.documentElement.scrollTop;
+});
 
 // routers
-const toHome = () => router.push({ path: "/" })
-const toSearch = () => router.push({ name: "search" })
-const toProfile = () => router.push({ path: "/" + auth.jwtDto.value?.username })
+const toHome = () => router.push({ path: "/" });
+const toSearch = () => router.push({ name: "search" });
+const toProfile = () =>
+  router.push({ path: "/" + auth.jwtDto.value?.username });
 </script>
 
 <style scoped lang="css">

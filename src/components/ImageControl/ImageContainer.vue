@@ -17,27 +17,30 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import { ElMessage } from "element-plus"
-import ImageItem, { type Image } from "./ImageItem.vue"
-import getImagesApi from "@/network/apis/image/GetImages"
-import router from "@/router"
+import { onMounted, ref } from "vue";
+import { ElMessage } from "element-plus";
+import ImageItem, { type Image } from "./ImageItem.vue";
+import getImagesApi from "@/network/apis/image/GetImages";
+import router from "@/router";
 
-const isLoading = ref(true)
-const isEmpty = ref(true)
-const images = ref<Image[]>()
+const isLoading = ref(true);
+const isEmpty = ref(true);
+const images = ref<Image[]>();
 
 onMounted(async () => {
-  await getImages()
-  isLoading.value = false
-})
+  await getImages();
+  isLoading.value = false;
+});
 
 const getImages = async () => {
-  const response = await getImagesApi(router.currentRoute.value.params["username"] as string, 1)
-  if (response.status < 300) images.value = response.data["images"] as Image[]
-  else ElMessage.error("Error!")
-  if (images.value?.length == 0) isEmpty.value == true
-}
+  const response = await getImagesApi(
+    router.currentRoute.value.params["username"] as string,
+    1,
+  );
+  if (response.status < 300) images.value = response.data["images"] as Image[];
+  else ElMessage.error("Error!");
+  if (images.value?.length == 0) isEmpty.value == true;
+};
 </script>
 
 <style scoped>

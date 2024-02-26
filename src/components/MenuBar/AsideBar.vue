@@ -1,5 +1,8 @@
 <template>
-  <div class="placeholder hidden-sm-and-down" :style="{ 'min-width': width + 'px' }" />
+  <div
+    class="placeholder hidden-sm-and-down"
+    :style="{ 'min-width': width + 'px' }"
+  />
   <div id="menu" class="hidden-sm-and-down" :style="{ width: width + 'px' }">
     <el-menu
       :default-active="currentView"
@@ -10,7 +13,11 @@
       close-on-click-outside
       :style="{ 'min-width': width + 'px' }"
     >
-      <el-menu-item index="switch" style="padding: 0%" @click="collapsed = !collapsed">
+      <el-menu-item
+        index="switch"
+        style="padding: 0%"
+        @click="collapsed = !collapsed"
+      >
         <MainHomeDiv manual :collapse="collapsed" />
       </el-menu-item>
       <el-menu-item index="home" @click="toHome">
@@ -70,33 +77,34 @@
 </template>
 
 <script setup lang="ts">
-import ProfileDiv from "./ProfileDiv.vue"
-import MainHomeDiv from "./MainHomeDiv.vue"
-import router from "@/router"
-import { computed, ref, watch } from "vue"
-import auth from "@/stores/auth"
-import "element-plus/theme-chalk/display.css"
+import ProfileDiv from "./ProfileDiv.vue";
+import MainHomeDiv from "./MainHomeDiv.vue";
+import router from "@/router";
+import { computed, ref, watch } from "vue";
+import auth from "@/stores/auth";
+import "element-plus/theme-chalk/display.css";
 
-const collapsed = ref(true)
+const collapsed = ref(true);
 
-const width = ref<number>(64)
+const width = ref<number>(64);
 
 watch(collapsed, (newVal) => {
   setTimeout(() => {
-    width.value = newVal ? 65 : 180
-  }, 0)
-})
+    width.value = newVal ? 65 : 180;
+  }, 0);
+});
 
 // icon locate
 const currentView = computed(() => {
-  var name = router.currentRoute.value.name
-  return name
-})
+  var name = router.currentRoute.value.name;
+  return name;
+});
 
 // routers
-const toHome = () => router.push({ path: "/" })
-const toSearch = () => router.push({ name: "search" })
-const toProfile = () => router.push({ path: "/" + auth.jwtDto.value?.username })
+const toHome = () => router.push({ path: "/" });
+const toSearch = () => router.push({ name: "search" });
+const toProfile = () =>
+  router.push({ path: "/" + auth.jwtDto.value?.username });
 </script>
 
 <style scoped lang="css">

@@ -15,7 +15,9 @@
         <el-text size="large" type="success">Congratulations!</el-text>
       </div>
       <div>
-        <el-text size="large" type="primary">{{ $t("registerView.complementRequest") }}</el-text>
+        <el-text size="large" type="primary">{{
+          $t("registerView.complementRequest")
+        }}</el-text>
       </div>
     </div>
     <el-form class="card-body" @keydown.enter.prevent>
@@ -28,24 +30,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
+import { ref } from "vue";
 
-import SendCodeStep from "@/components/RegisterSteps/SendCodeStep.vue"
-import VerifyCodeStep from "@/components/RegisterSteps/VerifyCodeStep.vue"
-import RegisterStep from "@/components/RegisterSteps/RegisterStep.vue"
-import router from "@/router"
-import { Message, Key, Edit } from "@element-plus/icons-vue"
-import ComplementStep from "@/components/RegisterSteps/ComplementStep.vue"
+import SendCodeStep from "@/components/RegisterSteps/SendCodeStep.vue";
+import VerifyCodeStep from "@/components/RegisterSteps/VerifyCodeStep.vue";
+import RegisterStep from "@/components/RegisterSteps/RegisterStep.vue";
+import router from "@/router";
+import { Message, Key, Edit } from "@element-plus/icons-vue";
+import ComplementStep from "@/components/RegisterSteps/ComplementStep.vue";
 
-const step = ref(1)
+const step = ref(1);
 
 const registerSuccess = () => {
-  step.value = 4
-}
+  step.value = 4;
+};
 
 const complementSuccess = () => {
-  router.push("/login")
-}
+  router.push("/login");
+};
 </script>
 
 <style scoped>

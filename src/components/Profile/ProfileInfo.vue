@@ -29,23 +29,23 @@
 </template>
 
 <script setup lang="ts">
-import { i18n } from "@/locales/i18n"
-import { ref } from "vue"
-import ProfileEditDialog from "@/components/Profile/ProfileEditDialog.vue"
-import auth from "@/stores/auth"
-import router from "@/router"
-import { ElMessage } from "element-plus"
-import type { ProfileContent } from "@/stores/profile"
+import { i18n } from "@/locales/i18n";
+import { ref } from "vue";
+import ProfileEditDialog from "@/components/Profile/ProfileEditDialog.vue";
+import auth from "@/stores/auth";
+import router from "@/router";
+import { ElMessage } from "element-plus";
+import type { ProfileContent } from "@/stores/profile";
 
-defineProps<{ content: ProfileContent }>()
+defineProps<{ content: ProfileContent }>();
 
-const isEditDialogOpen = ref(false)
+const isEditDialogOpen = ref(false);
 
 const logout = () => {
-  auth.setToken(null)
-  router.push({ name: "login" })
-  ElMessage.success(i18n.global.t("profileView.logout.success"))
-}
+  auth.setToken(null);
+  router.push({ name: "login" });
+  ElMessage.success(i18n.global.t("profileView.logout.success"));
+};
 </script>
 
 <style scoped>

@@ -28,34 +28,35 @@
 </template>
 
 <script setup lang="ts">
-import { i18n } from "@/locales/i18n"
-import auth from "@/stores/auth"
-import { ElMessage, type UploadProps } from "element-plus"
+import { i18n } from "@/locales/i18n";
+import auth from "@/stores/auth";
+import { ElMessage, type UploadProps } from "element-plus";
 
-const props = defineProps<{ src: string | null; isEditable: boolean }>()
-const emit = defineEmits(["updated"])
+const props = defineProps<{ src: string | null; isEditable: boolean }>();
+const emit = defineEmits(["updated"]);
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken()
-}
+  Authorization: "Bearer " + auth.getToken(),
+};
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
   if (rawFile.size / 1024 / 1024 > 5) {
-    ElMessage.error(i18n.global.t("avatarFileExceed"))
-    return false
+    ElMessage.error(i18n.global.t("avatarFileExceed"));
+    return false;
   } else if (!rawFile.type.startsWith("image")) {
-    ElMessage.error(i18n.global.t("imageFormatError"))
-    return false
+    ElMessage.error(i18n.global.t("imageFormatError"));
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 const uploadSuccess = () => {
-  ElMessage.success(i18n.global.t("profileView.edit.upload.success"))
-  emit("updated")
-}
+  ElMessage.success(i18n.global.t("profileView.edit.upload.success"));
+  emit("updated");
+};
 
-const uploadFail = () => ElMessage.error(i18n.global.t("profileView.edit.upload.fail"))
+const uploadFail = () =>
+  ElMessage.error(i18n.global.t("profileView.edit.upload.fail"));
 </script>
 
 <style scoped lang="css">

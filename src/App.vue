@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import HeaderBar from "./components/MenuBar/HeaderBar.vue"
-import AsideBar from "./components/MenuBar/AsideBar.vue"
+import HeaderBar from "./components/MenuBar/HeaderBar.vue";
+import AsideBar from "./components/MenuBar/AsideBar.vue";
 </script>
 
 <style scoped>

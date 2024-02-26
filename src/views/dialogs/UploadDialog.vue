@@ -1,5 +1,12 @@
 <template>
-  <el-dialog append-to-body align-center draggable destroy-on-close width="664px" v-model="value">
+  <el-dialog
+    append-to-body
+    align-center
+    draggable
+    destroy-on-close
+    width="664px"
+    v-model="value"
+  >
     <template #header>
       <el-text size="large">{{ $t("action.upload") }}</el-text>
     </template>
@@ -34,26 +41,26 @@
 </template>
 
 <script setup lang="ts">
-import { ElNotification } from "element-plus"
-import { computed, ref } from "vue"
-import { i18n } from "../../locales/i18n"
-import { type UploadRawFile, type UploadRequestOptions } from "element-plus"
-import uploadImageApi from "../../network/apis/image/UploadImage"
-import auth from "../../stores/auth"
-const uploadRef = ref()
+import { ElNotification } from "element-plus";
+import { computed, ref } from "vue";
+import { i18n } from "../../locales/i18n";
+import { type UploadRawFile, type UploadRequestOptions } from "element-plus";
+import uploadImageApi from "../../network/apis/image/UploadImage";
+import auth from "../../stores/auth";
+const uploadRef = ref();
 
 interface ImageData {
-  imageFile: UploadRawFile
-  title: string
-  description: string
-  category_id: number
-  album_id: number
-  is_exif_enabled: boolean
-  tags: string[]
+  imageFile: UploadRawFile;
+  title: string;
+  description: string;
+  category_id: number;
+  album_id: number;
+  is_exif_enabled: boolean;
+  tags: string[];
 }
 
 const httpRequest = async (options: UploadRequestOptions) => {
-  var raw = options.file
+  var raw = options.file;
   var file: ImageData = {
     imageFile: raw,
     title: raw.uid.toString(),
@@ -61,40 +68,40 @@ const httpRequest = async (options: UploadRequestOptions) => {
     category_id: 1,
     album_id: 0,
     is_exif_enabled: false,
-    tags: [""]
-  }
+    tags: [""],
+  };
 
-  const response = await uploadImageApi(auth.jwtDto.value?.username!, file)
+  const response = await uploadImageApi(auth.jwtDto.value?.username!, file);
   if (response.status < 300) {
     ElNotification.success({
       duration: 3000,
-      message: i18n.global.t("uploadView.success")
-    })
-    options.onSuccess(response)
+      message: i18n.global.t("uploadView.success"),
+    });
+    options.onSuccess(response);
   } else {
     ElNotification.error({
-      message: "Image " + file.title + " " + i18n.global.t("uploadView.fail")
-    })
+      message: "Image " + file.title + " " + i18n.global.t("uploadView.fail"),
+    });
     options.onError({
       name: file.title,
       status: response.status,
       method: "POST",
       url: "",
-      message: response.data.title
-    })
+      message: response.data.title,
+    });
   }
-}
+};
 
-const props = defineProps<{ modelValue: boolean }>()
-const emit = defineEmits(["update:modelValue"])
+const props = defineProps<{ modelValue: boolean }>();
+const emit = defineEmits(["update:modelValue"]);
 const value = computed({
   get() {
-    return props.modelValue
+    return props.modelValue;
   },
   set(value) {
-    emit("update:modelValue", value)
-  }
-})
+    emit("update:modelValue", value);
+  },
+});
 </script>
 
 <style scoped>

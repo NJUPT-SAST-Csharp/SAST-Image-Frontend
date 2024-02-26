@@ -26,20 +26,20 @@
 </template>
 
 <script setup lang="ts">
-import updateProfile from "@/network/apis/profile/UpdateProfile"
-import { ArrowRight } from "@element-plus/icons-vue/global"
-import { ref } from "vue"
+import updateProfile from "@/network/apis/profile/UpdateProfile";
+import { ArrowRight } from "@element-plus/icons-vue/global";
+import { ref } from "vue";
 
-const emit = defineEmits(["success", "skip"])
+const emit = defineEmits(["success", "skip"]);
 
 const dto = ref({
   nickname: "",
   biography: "",
   website: null,
-  birthday: null
-})
+  birthday: null,
+});
 
 const confirm = async () => {
-  await updateProfile(dto.value)
-}
+  await updateProfile(dto.value);
+};
 </script>

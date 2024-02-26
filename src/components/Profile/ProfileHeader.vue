@@ -1,6 +1,11 @@
 <template>
   <div class="header-frame">
-    <el-skeleton style="height: 240px" animated :throttle="500" v-if="isLoading">
+    <el-skeleton
+      style="height: 240px"
+      animated
+      :throttle="500"
+      v-if="isLoading"
+    >
       <template #template>
         <el-skeleton-item variant="image" style="height: 240px" />
       </template>
@@ -9,7 +14,7 @@
       :style="{
         width: 100 + '%',
         height: 50 + 'vh',
-        display: isLoading ? 'none' : 'block'
+        display: isLoading ? 'none' : 'block',
       }"
       :src="props.src"
       fit="cover"
@@ -40,46 +45,47 @@
 </template>
 
 <script setup lang="ts">
-import { i18n } from "@/locales/i18n"
-import auth from "@/stores/auth"
-import { type UploadProps, type UploadInstance, ElMessage } from "element-plus"
-import { ref } from "vue"
+import { i18n } from "@/locales/i18n";
+import auth from "@/stores/auth";
+import { type UploadProps, type UploadInstance, ElMessage } from "element-plus";
+import { ref } from "vue";
 
-const props = defineProps<{ src: string | null; isEditable: boolean }>()
+const props = defineProps<{ src: string | null; isEditable: boolean }>();
 
-const emit = defineEmits(["updated"])
+const emit = defineEmits(["updated"]);
 
-const isLoading = ref(true)
-const isEmpty = ref(false)
+const isLoading = ref(true);
+const isEmpty = ref(false);
 
 const loadFail = () => {
-  isLoading.value = false
-  isEmpty.value = true
-}
+  isLoading.value = false;
+  isEmpty.value = true;
+};
 
-const headerRef = ref<UploadInstance>()
+const headerRef = ref<UploadInstance>();
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken()
-}
+  Authorization: "Bearer " + auth.getToken(),
+};
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
   if (rawFile.size / 1024 / 1024 > 10) {
-    ElMessage.error(i18n.global.t("headerFileExceed"))
-    return false
+    ElMessage.error(i18n.global.t("headerFileExceed"));
+    return false;
   } else if (!rawFile.type.startsWith("image")) {
-    ElMessage.error(i18n.global.t("imageFormatError"))
-    return false
+    ElMessage.error(i18n.global.t("imageFormatError"));
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 const uploadSuccess = () => {
-  ElMessage.success(i18n.global.t("profileView.edit.upload.success"))
-  emit("updated")
-}
+  ElMessage.success(i18n.global.t("profileView.edit.upload.success"));
+  emit("updated");
+};
 
-const uploadFail = () => ElMessage.error(i18n.global.t("profileView.edit.upload.fail"))
+const uploadFail = () =>
+  ElMessage.error(i18n.global.t("profileView.edit.upload.fail"));
 </script>
 
 <style scoped>

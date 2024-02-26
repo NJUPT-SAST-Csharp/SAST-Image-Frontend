@@ -1,11 +1,11 @@
-import auth from "@/stores/auth"
-import { createRouter, createWebHistory } from "vue-router"
-import ProfileView from "@/views/ProfileView.vue"
+import auth from "@/stores/auth";
+import { createRouter, createWebHistory } from "vue-router";
+import ProfileView from "@/views/ProfileView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
     // 每个路由都必须声明
-    requiresAuth: boolean
+    requiresAuth: boolean;
   }
 }
 
@@ -15,41 +15,41 @@ const router = createRouter({
     {
       path: "/home",
       redirect: "/",
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: false },
     },
     {
       path: "/",
       name: "home",
       component: () => import("../views/HomeView.vue"),
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: false },
     },
     {
       path: "/search",
       name: "search",
       component: () => import("../views/SearchView.vue"),
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: false },
     },
     {
       path: "/:username",
       name: "profile",
       component: ProfileView,
       props: true,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: false },
     },
     {
       path: "/register",
       name: "register",
       component: () => import("../views/RegisterView.vue"),
-      meta: { requiresAuth: false }
-    }
-  ]
-})
+      meta: { requiresAuth: false },
+    },
+  ],
+});
 
 router.beforeEach((to, from) => {
   // to.matched.some(record => record.meta.requiresAuth)
@@ -57,12 +57,13 @@ router.beforeEach((to, from) => {
     // 此路由需要授权，请检查是否已登录
     // 如果没有，则重定向到登录页面
     return {
-      path: "/login"
-    }
+      path: "/login",
+    };
   }
-  const oriName: string = to.name?.toString()!
-  console.log(oriName)
-  window.document.title = oriName.charAt(0).toUpperCase() + oriName.substring(1) + " / SastImg"
-})
+  const oriName: string = to.name?.toString()!;
+  console.log(oriName);
+  window.document.title =
+    oriName.charAt(0).toUpperCase() + oriName.substring(1) + " / SastImg";
+});
 
-export default router
+export default router;

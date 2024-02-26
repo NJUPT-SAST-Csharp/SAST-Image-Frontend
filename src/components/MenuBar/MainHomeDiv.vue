@@ -6,7 +6,7 @@
       class="brief-logo"
       :class="{
         invisible: props.manual && !props.collapse,
-        visible: props.manual && props.collapse
+        visible: props.manual && props.collapse,
       }"
     />
     <img
@@ -15,7 +15,7 @@
       class="detailed-logo"
       :class="{
         invisible: props.manual && props.collapse,
-        visible: props.manual && !props.collapse
+        visible: props.manual && !props.collapse,
       }"
     />
   </div>
@@ -24,8 +24,8 @@
 <script setup lang="ts">
 const props = defineProps({
   manual: { type: Boolean, required: false },
-  collapse: { type: Boolean, required: false }
-})
+  collapse: { type: Boolean, required: false },
+});
 </script>
 
 <style scoped lang="css">

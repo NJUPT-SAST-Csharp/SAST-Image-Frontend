@@ -30,7 +30,11 @@
         <el-button type="primary" @click="login" :loading="isLoading">
           {{ $t("loginView.login") }}
         </el-button>
-        <el-button class="register-button" type="info" @click="router.push('/register')">
+        <el-button
+          class="register-button"
+          type="info"
+          @click="router.push('/register')"
+        >
           {{ $t("loginView.register") }}
         </el-button>
       </el-form-item>
@@ -39,31 +43,34 @@
 </template>
 
 <script lang="ts" setup>
-import { i18n } from "@/locales/i18n"
-import { ref } from "vue"
-import { ElMessage } from "element-plus"
-import loginApi from "../network/apis/account/Login"
-import auth from "../stores/auth"
-import router from "@/router"
+import { i18n } from "@/locales/i18n";
+import { ref } from "vue";
+import { ElMessage } from "element-plus";
+import loginApi from "../network/apis/account/Login";
+import auth from "../stores/auth";
+import router from "@/router";
 
-const isLoading = ref(false)
-const loginDto = ref({ username: "", password: "" })
+const isLoading = ref(false);
+const loginDto = ref({ username: "", password: "" });
 
 const login = async () => {
-  isLoading.value = true
-  const response = await loginApi(loginDto.value.username, loginDto.value.password)
-  isLoading.value = false
+  isLoading.value = true;
+  const response = await loginApi(
+    loginDto.value.username,
+    loginDto.value.password,
+  );
+  isLoading.value = false;
   if (response.status >= 300) {
-    ElMessage.error(i18n.global.t("loginView.loginFailed"))
+    ElMessage.error(i18n.global.t("loginView.loginFailed"));
   } else {
-    auth.setToken(response.data["jwt"])
-    ElMessage.success(i18n.global.t("loginView.loginSuccess"))
+    auth.setToken(response.data["jwt"]);
+    ElMessage.success(i18n.global.t("loginView.loginSuccess"));
     router.push({
       name: "profile",
-      params: { username: auth.jwtDto.value?.username }
-    })
+      params: { username: auth.jwtDto.value?.username },
+    });
   }
-}
+};
 </script>
 
 <style scoped>
