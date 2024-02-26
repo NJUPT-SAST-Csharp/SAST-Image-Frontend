@@ -3,8 +3,13 @@
     class="placeholder hidden-sm-and-down"
     :style="{ 'min-width': width + 'px' }"
   />
-  <div id="menu" class="hidden-sm-and-down" :style="{ width: width + 'px' }">
-    <el-menu
+  <div
+    id="menu-div"
+    class="hidden-sm-and-down"
+    :style="{ width: width + 'px' }"
+  >
+    <ElMenu
+      class="menu"
       :default-active="currentView"
       :collapse="collapsed"
       :ellipsis="false"
@@ -13,66 +18,66 @@
       close-on-click-outside
       :style="{ 'min-width': width + 'px' }"
     >
-      <el-menu-item
+      <ElMenuItem
         index="switch"
         style="padding: 0%"
         @click="collapsed = !collapsed"
       >
         <MainHomeDiv manual :collapse="collapsed" />
-      </el-menu-item>
-      <el-menu-item index="home" @click="toHome">
-        <el-icon><House /></el-icon>
+      </ElMenuItem>
+      <ElMenuItem index="home" @click="toHome">
+        <ElIcon><House /></ElIcon>
         <template #title>
-          <el-text size="large">{{ $t("menuItem.home") }}</el-text>
+          <ElText size="large">{{ $t("menuItem.home") }}</ElText>
         </template>
-      </el-menu-item>
-      <el-sub-menu index="explore">
+      </ElMenuItem>
+      <ElSubMenu index="explore">
         <template #title>
-          <el-icon><Guide /></el-icon>
-          <el-text size="large">{{ $t("menuItem.explore") }}</el-text>
+          <ElIcon><Guide /></ElIcon>
+          <ElText size="large">{{ $t("menuItem.explore") }}</ElText>
         </template>
-        <el-menu-item index="2-1">
+        <ElMenuItem index="2-1">
           <template #title>
-            <el-icon><Clock /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.recent") }}</el-text>
+            <ElIcon><Clock /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.recent") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-2">
+        </ElMenuItem>
+        <ElMenuItem index="2-2">
           <template #title>
-            <el-icon><Collection /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.following") }}</el-text>
+            <ElIcon><Collection /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.following") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-3">
+        </ElMenuItem>
+        <ElMenuItem index="2-3">
           <template #title>
-            <el-icon><Orange /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.popular") }}</el-text>
+            <ElIcon><Orange /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.popular") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-4">
+        </ElMenuItem>
+        <ElMenuItem index="2-4">
           <template #title>
-            <el-icon><Star /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.likes") }}</el-text>
+            <ElIcon><Star /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.likes") }}</ElText>
           </template>
-        </el-menu-item>
-      </el-sub-menu>
-      <el-menu-item index="search" @click="toSearch">
-        <el-icon><Search /></el-icon>
+        </ElMenuItem>
+      </ElSubMenu>
+      <ElMenuItem index="search" @click="toSearch">
+        <ElIcon><Search /></ElIcon>
         <template #title>
-          <el-text size="large">{{ $t("menuItem.search") }}</el-text>
+          <ElText size="large">{{ $t("menuItem.search") }}</ElText>
         </template>
-      </el-menu-item>
-      <el-menu-item index="upload">
-        <el-icon><Upload /></el-icon>
+      </ElMenuItem>
+      <ElMenuItem index="upload">
+        <ElIcon><Upload /></ElIcon>
         <template #title>
-          <el-text size="large">{{ $t("action.upload") }}</el-text>
+          <ElText size="large">{{ $t("action.upload") }}</ElText>
         </template>
-      </el-menu-item>
-      <el-menu-item index="profile" style="padding: 0%" @click="toProfile">
+      </ElMenuItem>
+      <ElMenuItem index="profile" style="padding: 0%" @click="toProfile">
         <ProfileDiv manual :collapse="collapsed" />
-      </el-menu-item>
+      </ElMenuItem>
       <li class="placeholder" :style="{ 'min-width': width + 'px' }"></li>
-    </el-menu>
+    </ElMenu>
   </div>
 </template>
 
@@ -108,7 +113,7 @@ const toProfile = () =>
 </script>
 
 <style scoped lang="css">
-#menu {
+#menu-div {
   position: fixed;
   height: 100%;
   display: flex;
@@ -118,31 +123,18 @@ const toProfile = () =>
     min-width 1s ease;
 }
 
-.el-menu {
-  transition: min-width 1s ease;
-}
-
-.el-menu--collapse {
-  transition: min-width 1s ease;
+.menu {
+  transition: min-width 0.75s;
 }
 
 .placeholder {
-  transition: min-width 1s ease;
+  transition: min-width 0.75s;
   height: 100%;
 }
 
 @media screen and (max-width: 62rem) {
-  #menu {
+  #menu-div {
     display: none;
-  }
-  #aside-placeholder {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 75rem) and(min-width: 62rem) {
-  #aside-placeholder {
-    width: 72px;
   }
 }
 </style>

@@ -1,12 +1,21 @@
 <template>
   <div class="edit-button">
     <div v-if="auth.jwtDto.value?.username == content.username">
-      <el-button icon="Edit" @click="isEditDialogOpen = !isEditDialogOpen">
+      <ElButton
+        class="button"
+        icon="Edit"
+        @click="isEditDialogOpen = !isEditDialogOpen"
+      >
         {{ $t("profileView.edit.profile") }}
-      </el-button>
-      <el-button icon="CircleCloseFilled" type="danger" @click="logout">
+      </ElButton>
+      <ElButton
+        class="button"
+        icon="CircleCloseFilled"
+        type="danger"
+        @click="logout"
+      >
         {{ $t("profileView.logout.description") }}
-      </el-button>
+      </ElButton>
     </div>
     <ProfileEditDialog
       v-if="auth.jwtDto.value?.username == content.username"
@@ -15,16 +24,16 @@
     />
   </div>
   <div class="text">
-    <el-space direction="vertical" alignment="normal" wrap size="large">
-      <el-space direction="vertical" alignment="normal" wrap>
-        <el-text size="large" tag="b">{{ content.nickname }} </el-text>
-        <el-text>{{ "@" + content.username }} </el-text>
-      </el-space>
-      <el-text v-if="content.biography">{{ content.biography }}</el-text>
+    <ElSpace direction="vertical" alignment="normal" wrap size="large">
+      <ElSpace direction="vertical" alignment="normal" wrap>
+        <ElText size="large" tag="b">{{ content.nickname }} </ElText>
+        <ElText>{{ "@" + content.username }} </ElText>
+      </ElSpace>
+      <ElText v-if="content.biography">{{ content.biography }}</ElText>
       <span v-if="content.website && content.website.trim() != ''">
-        <el-icon><Position /></el-icon><el-text>{{ content.website }} </el-text>
+        <ElIcon><Position /></ElIcon><ElText>{{ content.website }} </ElText>
       </span>
-    </el-space>
+    </ElSpace>
   </div>
 </template>
 
@@ -49,7 +58,7 @@ const logout = () => {
 </script>
 
 <style scoped>
-.el-button {
+.button {
   margin-top: 10%;
 }
 
@@ -67,7 +76,7 @@ const logout = () => {
   margin-left: 30px;
   width: 40%;
 }
-.text .el-text--large {
+.el-text--large {
   font-size: 24px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

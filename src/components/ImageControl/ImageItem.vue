@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-image :src="src">
+    <ElImage :src="src">
       <template #error>
         <img src="../../assets/default.png" />
       </template>
-    </el-image>
+    </ElImage>
   </div>
 </template>
 

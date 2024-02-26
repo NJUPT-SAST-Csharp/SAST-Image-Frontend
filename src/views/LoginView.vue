@@ -1,20 +1,20 @@
 <template>
-  <el-card class="main-frame" shadow="hover">
+  <ElCard class="main-frame" shadow="hover">
     <template #header>
       <div>
         <img src="../assets/logo.png" height="24" />
       </div>
     </template>
-    <el-form inline style="margin-left: 5%">
-      <el-form-item>
-        <el-input v-model="loginDto.username" maxlength="20" minlength="2">
+    <ElForm inline style="margin-left: 5%">
+      <ElFormItem>
+        <ElInput v-model="loginDto.username" maxlength="20" minlength="2">
           <template #prepend>
             {{ $t("loginView.username") }}
           </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-input
+        </ElInput>
+      </ElFormItem>
+      <ElFormItem>
+        <ElInput
           v-model="loginDto.password"
           maxlength="20"
           minlength="6"
@@ -24,22 +24,22 @@
           <template #prepend>
             {{ $t("loginView.password") }}
           </template>
-        </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="login" :loading="isLoading">
+        </ElInput>
+      </ElFormItem>
+      <ElFormItem>
+        <ElButton type="primary" @click="login" :loading="isLoading">
           {{ $t("loginView.login") }}
-        </el-button>
-        <el-button
+        </ElButton>
+        <ElButton
           class="register-button"
           type="info"
           @click="router.push('/register')"
         >
           {{ $t("loginView.register") }}
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </el-card>
+        </ElButton>
+      </ElFormItem>
+    </ElForm>
+  </ElCard>
 </template>
 
 <script lang="ts" setup>

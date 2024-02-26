@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AsideBar: typeof import('./src/components/MenuBar/AsideBar.vue')['default']
     ComplementStep: typeof import('./src/components/RegisterSteps/ComplementStep.vue')['default']
-    ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -47,13 +46,11 @@ declare module 'vue' {
     ProfileEditDialog: typeof import('./src/components/Profile/ProfileEditDialog.vue')['default']
     ProfileHeader: typeof import('./src/components/Profile/ProfileHeader.vue')['default']
     ProfileInfo: typeof import('./src/components/Profile/ProfileInfo.vue')['default']
-    ProfileMain: typeof import('./src/components/Profile/ProfileMain.vue')['default']
     ProfileTabs: typeof import('./src/components/Profile/ProfileTabs.vue')['default']
     RegisterStep: typeof import('./src/components/RegisterSteps/RegisterStep.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SendCodeStep: typeof import('./src/components/RegisterSteps/SendCodeStep.vue')['default']
-    UploadDialog: typeof import('./src/components/UploadDialog.vue')['default']
     VerifyCodeStep: typeof import('./src/components/RegisterSteps/VerifyCodeStep.vue')['default']
   }
   export interface ComponentCustomProperties {

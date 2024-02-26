@@ -1,16 +1,11 @@
 <template>
   <div class="header-frame">
-    <el-skeleton
-      style="height: 240px"
-      animated
-      :throttle="500"
-      v-if="isLoading"
-    >
+    <ElSkeleton style="height: 240px" animated :throttle="500" v-if="isLoading">
       <template #template>
-        <el-skeleton-item variant="image" style="height: 240px" />
+        <ElSkeletonItem variant="image" style="height: 240px" />
       </template>
-    </el-skeleton>
-    <el-image
+    </ElSkeleton>
+    <ElImage
       :style="{
         width: 100 + '%',
         height: isEmpty ? 80 + 'px' : 50 + 'vh',
@@ -24,8 +19,8 @@
       <template #error>
         <div />
       </template>
-    </el-image>
-    <el-upload
+    </ElImage>
+    <ElUpload
       ref="headerRef"
       class="edit-block"
       name="headerFile"
@@ -40,7 +35,7 @@
       <div class="edit-button" v-if="props.isEditable">
         {{ $t("updateHeader") }}
       </div>
-    </el-upload>
+    </ElUpload>
   </div>
 </template>
 

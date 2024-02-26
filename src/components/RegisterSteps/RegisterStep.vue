@@ -1,13 +1,13 @@
 <template>
-  <el-form-item>
-    <el-input v-model="dto.username" maxlength="20" minlength="2">
+  <ElFormItem>
+    <ElInput v-model="dto.username" maxlength="20" minlength="2">
       <template #prepend>
         {{ $t("registerView.dto.username") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-input
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
+    <ElInput
       type="password"
       show-password
       v-model="dto.password"
@@ -17,14 +17,14 @@
       <template #prepend>
         {{ $t("registerView.dto.password") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
     <span style="width: 120px" />
-    <el-button type="primary" @click="register" :loading="isLoading">
+    <ElButton type="primary" @click="register" :loading="isLoading">
       {{ $t("action.confirm") }}
-    </el-button>
-  </el-form-item>
+    </ElButton>
+  </ElFormItem>
 </template>
 
 <script setup lang="ts">

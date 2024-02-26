@@ -1,31 +1,31 @@
 <template>
-  <el-form-item>
-    <el-input v-model="email" maxlength="20">
+  <ElFormItem>
+    <ElInput v-model="email" maxlength="20">
       <template #prepend>
         {{ $t("registerView.email") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
     <span style="width: 50px" />
-    <el-button type="info" icon="ArrowLeft" @click="router.push('/login')">
+    <ElButton type="info" icon="ArrowLeft" @click="router.push('/login')">
       {{ $t("registerView.backToLogin") }}
-    </el-button>
-    <el-button
+    </ElButton>
+    <ElButton
       type="primary"
       @click="sendToken"
       :loading="isLoading"
       :disabled="isCountdown"
     >
-      <el-countdown
+      <ElCountdown
         v-if="isCountdown"
         :value="global.countdown"
         @finish="isCountdown = false"
         format="ss"
       />
       <span v-else>{{ $t("action.confirm") }}</span>
-    </el-button>
-  </el-form-item>
+    </ElButton>
+  </ElFormItem>
 </template>
 
 <script setup lang="ts">

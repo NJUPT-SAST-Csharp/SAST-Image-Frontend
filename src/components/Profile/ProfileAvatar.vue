@@ -13,7 +13,7 @@
       :show-file-list="false"
     >
       <ElAvatar :size="120" fit="cover" :src="props.src" class="edit-block">
-        <img src="../../assets/avatar.png" />
+        <img src="@/assets/avatar.png" />
       </ElAvatar>
       <ElIcon :size="30" color="#409EFC" class="edit-icon">
         <Edit />
@@ -21,7 +21,7 @@
     </ElUpload>
     <div v-else>
       <ElAvatar :size="120" fit="cover" :src="props.src">
-        <img src="../assets/avatar.png" />
+        <img src="@/assets/avatar.png" />
       </ElAvatar>
     </div>
   </div>

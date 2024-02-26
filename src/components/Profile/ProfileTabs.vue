@@ -1,14 +1,12 @@
 <template>
-  <el-tabs>
-    <el-tab-pane
-      class="el-tab"
-      :label="i18n.global.t('profileView.tabs.images')"
-      ><ImageContainer
-    /></el-tab-pane>
-    <el-tab-pane :label="i18n.global.t('profileView.tabs.albums')" lazy
-      >Albums</el-tab-pane
-    >
-  </el-tabs>
+  <ElTabs class="tabs">
+    <ElTabPane class="el-tab" :label="i18n.global.t('profileView.tabs.images')">
+      <ImageContainer />
+    </ElTabPane>
+    <ElTabPane :label="i18n.global.t('profileView.tabs.albums')" lazy
+      >Albums
+    </ElTabPane>
+  </ElTabs>
 </template>
 
 <script setup lang="ts">
@@ -17,7 +15,7 @@ import ImageContainer from "../ImageControl/ImageContainer.vue";
 </script>
 
 <style scoped>
-.el-tabs {
+.tabs {
   height: calc(100vh);
   padding: 30px;
 }

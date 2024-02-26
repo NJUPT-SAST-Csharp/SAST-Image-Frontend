@@ -1,6 +1,6 @@
 <template>
-  <el-form-item>
-    <el-input
+  <ElFormItem>
+    <ElInput
       style="width: 65%; margin-right: 5%"
       v-model="code"
       maxlength="6"
@@ -9,32 +9,32 @@
       <template #prepend>
         {{ $t("registerView.token") }}
       </template>
-    </el-input>
-    <el-button
+    </ElInput>
+    <ElButton
       plain
       type="primary"
       @click="sendToken"
       :loading="isLoading"
       :disabled="isCountdown"
     >
-      <el-countdown
+      <ElCountdown
         v-if="isCountdown"
         :value="global.countdown"
         @finish="isCountdown = false"
         format="ss"
       />
       <span v-else>{{ $t("registerView.sendToken") }}</span>
-    </el-button>
-  </el-form-item>
-  <el-form-item>
+    </ElButton>
+  </ElFormItem>
+  <ElFormItem>
     <span style="width: 50px" />
-    <el-button type="info" icon="ArrowLeft" @click="$emit('back')">
+    <ElButton type="info" icon="ArrowLeft" @click="$emit('back')">
       {{ $t("registerView.backToChangeEmail") }}
-    </el-button>
-    <el-button type="primary" @click="validate" :loading="isLoading">
+    </ElButton>
+    <ElButton type="primary" @click="validate" :loading="isLoading">
       {{ $t("action.confirm") }}
-    </el-button>
-  </el-form-item>
+    </ElButton>
+  </ElFormItem>
 </template>
 
 <script setup lang="ts">

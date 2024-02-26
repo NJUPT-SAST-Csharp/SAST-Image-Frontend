@@ -1,28 +1,28 @@
 <template>
-  <el-form-item>
-    <el-input v-model="dto.nickname">
+  <ElFormItem>
+    <ElInput v-model="dto.nickname">
       <template #prepend>
         {{ $t("profileView.profileItems.nickname") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-input v-model="dto.biography">
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
+    <ElInput v-model="dto.biography">
       <template #prepend>
         {{ $t("profileView.profileItems.biography") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
     <span style="width: 50px" />
-    <el-button type="primary" @click="confirm">
+    <ElButton type="primary" @click="confirm">
       {{ $t("action.confirm") }}
-    </el-button>
-    <el-button type="info" @click="emit('skip')">
+    </ElButton>
+    <ElButton type="info" @click="emit('skip')">
       {{ $t("registerView.skipComplementRequest") }}
-      <el-icon class="el-icon--right"><ArrowRight /></el-icon>
-    </el-button>
-  </el-form-item>
+      <ElIcon class="ElIcon--right"><ArrowRight /></ElIcon>
+    </ElButton>
+  </ElFormItem>
 </template>
 
 <script setup lang="ts">

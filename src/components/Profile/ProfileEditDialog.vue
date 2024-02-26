@@ -1,5 +1,5 @@
 <template>
-  <el-dialog
+  <ElDialog
     width="600px"
     align-center
     v-model="isDialogOpen"
@@ -10,13 +10,13 @@
   >
     <template #header>
       <div style="height: 20px">
-        <el-text size="large" tag="b">{{
+        <ElText size="large" tag="b">{{
           $t("profileView.edit.profile")
-        }}</el-text>
+        }}</ElText>
       </div>
     </template>
     <div class="image-upload">
-      <el-upload
+      <ElUpload
         ref="avatarRef"
         accept="image/avif,image/bmp,image/jpeg,image/tiff,image/webp,image/svg+xml,image/png,image/gif"
         name="avatarFile"
@@ -29,57 +29,55 @@
         :headers="uploadHeaders"
         :show-file-list="false"
       >
-        <el-button icon="User" plain type="primary">
+        <ElButton icon="User" plain type="primary">
           {{ $t("profileView.edit.avatar") }}
-        </el-button>
-      </el-upload>
+        </ElButton>
+      </ElUpload>
     </div>
-    <el-form label-position="top">
-      <el-form-item :label="i18n.global.t('profileView.profileItems.nickname')">
-        <el-input
+    <ElForm label-position="top">
+      <ElFormItem :label="i18n.global.t('profileView.profileItems.nickname')">
+        <ElInput
           v-model="editContent.nickname"
           :maxlength="12"
           @keydown.enter.prevent
         />
-      </el-form-item>
-      <el-form-item
-        :label="i18n.global.t('profileView.profileItems.biography')"
-      >
-        <el-input
+      </ElFormItem>
+      <ElFormItem :label="i18n.global.t('profileView.profileItems.biography')">
+        <ElInput
           :autosize="{ minRows: 2, maxRows: 4 }"
           type="textarea"
           v-model="editContent.biography"
           :maxlength="100"
         />
-      </el-form-item>
-      <el-form-item :label="i18n.global.t('profileView.profileItems.website')">
-        <el-input
+      </ElFormItem>
+      <ElFormItem :label="i18n.global.t('profileView.profileItems.website')">
+        <ElInput
           v-model="editContent.website"
           :maxlength="40"
           @keydown.enter.prevent
         />
-      </el-form-item>
-      <el-form-item :label="i18n.global.t('profileView.profileItems.birthday')">
-        <el-input
+      </ElFormItem>
+      <ElFormItem :label="i18n.global.t('profileView.profileItems.birthday')">
+        <ElInput
           v-model="editContent.birthday"
           :maxlength="40"
           @keydown.enter.prevent
         />
-      </el-form-item>
-    </el-form>
-    <el-row>
-      <el-col :span="3">
-        <el-button @click="save" plain type="primary">{{
+      </ElFormItem>
+    </ElForm>
+    <ElRow>
+      <ElCol :span="3">
+        <ElButton @click="save" plain type="primary">{{
           $t("action.save")
-        }}</el-button>
-      </el-col>
-      <el-col :span="3">
-        <el-button @click="isDialogOpen = false" plain type="warning">{{
+        }}</ElButton>
+      </ElCol>
+      <ElCol :span="3">
+        <ElButton @click="isDialogOpen = false" plain type="warning">{{
           $t("action.cancel")
-        }}</el-button>
-      </el-col>
-    </el-row>
-  </el-dialog>
+        }}</ElButton>
+      </ElCol>
+    </ElRow>
+  </ElDialog>
 </template>
 
 <script setup lang="ts">

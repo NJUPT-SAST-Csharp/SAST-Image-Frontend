@@ -4,17 +4,17 @@
     :class="{ briefProfile: props.manual && props.collapse }"
   >
     <span id="avatar-span">
-      <el-avatar :src="profile.getProfile().value?.avatar" fit="cover">
+      <ElAvatar :src="profile.getProfile().value?.avatar" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
-      </el-avatar>
+      </ElAvatar>
     </span>
-    <el-text
+    <ElText
       id="username"
       :class="{ briefUsername: props.manual && props.collapse }"
       truncated
     >
       {{ profile.getProfile().value?.nickname ?? $t("loginView.login") }}
-    </el-text>
+    </ElText>
   </div>
 </template>
 

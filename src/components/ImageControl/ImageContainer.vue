@@ -1,18 +1,18 @@
 <template>
   <div>
-    <el-skeleton animated :throttle="500" :loading="isLoading">
+    <ElSkeleton animated :throttle="500" :loading="isLoading">
       <template #template>
-        <el-skeleton-item variant="image" />
+        <ElSkeletonItem variant="image" />
       </template>
       <template #default>
-        <el-empty v-if="isEmpty" />
+        <ElEmpty v-if="isEmpty" />
         <div v-else class="main-frame" v-infinite-scroll="getImages">
           <div class="items" v-for="image in images" :key="image.Id">
             <ImageItem :src="image.Url" />
           </div>
         </div>
       </template>
-    </el-skeleton>
+    </ElSkeleton>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog
+  <ElDialog
     append-to-body
     align-center
     draggable
@@ -8,10 +8,10 @@
     v-model="value"
   >
     <template #header>
-      <el-text size="large">{{ $t("action.upload") }}</el-text>
+      <ElText size="large">{{ $t("action.upload") }}</ElText>
     </template>
     <div>
-      <el-upload
+      <ElUpload
         accept="image/avif,image/bmp,image/jpeg,image/tiff,image/webp,image/svg+xml,image/png,image/gif"
         action
         ref="uploadRef"
@@ -20,24 +20,11 @@
         list-type="picture-card"
         :auto-upload="false"
       >
-        <el-icon><Plus /></el-icon>
-      </el-upload>
-      <!-- <el-form label-position="top">
-        <el-form-item :label="i18n.global.t('profileView.profileItems.nickname')">
-          <el-input v-model="imageData.title" :maxlength="12" @keydown.enter.prevent />
-        </el-form-item>
-        <el-form-item :label="i18n.global.t('profileView.profileItems.biography')">
-          <el-input
-            :autosize="{ minRows: 2, maxRows: 100 }"
-            type="textarea"
-            v-model="imageData.description"
-            :maxlength="100"
-          />
-        </el-form-item>
-      </el-form> -->
+        <ElIcon><Plus /></ElIcon>
+      </ElUpload>
     </div>
-    <el-button @click="uploadRef.submit()">Submit</el-button>
-  </el-dialog>
+    <ElButton @click="uploadRef.submit()">Submit</ElButton>
+  </ElDialog>
 </template>
 
 <script setup lang="ts">

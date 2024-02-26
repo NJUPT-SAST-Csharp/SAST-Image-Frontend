@@ -1,32 +1,32 @@
 <template>
-  <el-card class="main-frame" shadow="hover">
+  <ElCard class="main-frame" shadow="hover">
     <template #header>
       <div>
         <img src="../assets/logo.png" height="24" />
       </div>
     </template>
-    <el-steps align-center :active="step - 1" v-if="step < 4">
-      <el-step title="Send" :icon="Message" />
-      <el-step title="Validate" :icon="Key" />
-      <el-step title="Create" :icon="Edit" />
-    </el-steps>
+    <ElSteps align-center :active="step - 1" v-if="step < 4">
+      <ElStep title="Send" :icon="Message" />
+      <ElStep title="Validate" :icon="Key" />
+      <ElStep title="Create" :icon="Edit" />
+    </ElSteps>
     <div v-if="step == 4">
       <div>
-        <el-text size="large" type="success">Congratulations!</el-text>
+        <ElText size="large" type="success">Congratulations!</ElText>
       </div>
       <div>
-        <el-text size="large" type="primary">{{
+        <ElText size="large" type="primary">{{
           $t("registerView.complementRequest")
-        }}</el-text>
+        }}</ElText>
       </div>
     </div>
-    <el-form class="card-body" @keydown.enter.prevent>
+    <ElForm class="card-body" @keydown.enter.prevent>
       <SendCodeStep v-if="step == 1" @next="step = 2" />
       <VerifyCodeStep v-else-if="step == 2" @back="step = 1" @next="step = 3" />
       <RegisterStep v-else-if="step == 3" @success="registerSuccess" />
       <ComplementStep v-else @success="complementSuccess" />
-    </el-form>
-  </el-card>
+    </ElForm>
+  </ElCard>
 </template>
 
 <script lang="ts" setup>

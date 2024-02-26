@@ -1,70 +1,75 @@
 <template>
-  <el-header class="hidden-md-and-up" height="60px" v-if="display">
-    <el-menu
+  <ElHeader
+    height="60px"
+    class="hidden-md-and-up header"
+    :class="{ invisible: !display }"
+  >
+    <ElMenu
+      class="menu"
       :default-active="currentView"
       mode="horizontal"
       menu-trigger="click"
       :ellipsis="false"
       unique-opened
     >
-      <el-menu-item index="home" @click="toHome">
+      <ElMenuItem index="home" @click="toHome">
         <MainHomeDiv />
-      </el-menu-item>
+      </ElMenuItem>
       <div class="flex-grow" />
-      <el-sub-menu index="explore">
+      <ElSubMenu index="explore">
         <template #title>
-          <el-icon><Guide /></el-icon>
-          <el-text class="hidden-xs-only" size="large">{{
+          <ElIcon><Guide /></ElIcon>
+          <ElText class="hidden-xs-only" size="large">{{
             $t("menuItem.explore")
-          }}</el-text>
+          }}</ElText>
         </template>
-        <el-menu-item index="2-1">
+        <ElMenuItem index="2-1">
           <template #title>
-            <el-icon><Clock /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.recent") }}</el-text>
+            <ElIcon><Clock /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.recent") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-2">
+        </ElMenuItem>
+        <ElMenuItem index="2-2">
           <template #title>
-            <el-icon><Collection /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.following") }}</el-text>
+            <ElIcon><Collection /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.following") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-3">
+        </ElMenuItem>
+        <ElMenuItem index="2-3">
           <template #title>
-            <el-icon><Orange /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.popular") }}</el-text>
+            <ElIcon><Orange /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.popular") }}</ElText>
           </template>
-        </el-menu-item>
-        <el-menu-item index="2-4">
+        </ElMenuItem>
+        <ElMenuItem index="2-4">
           <template #title>
-            <el-icon><Star /></el-icon>
-            <el-text>{{ $t("menuItem.exploreSubItem.likes") }}</el-text>
+            <ElIcon><Star /></ElIcon>
+            <ElText>{{ $t("menuItem.exploreSubItem.likes") }}</ElText>
           </template>
-        </el-menu-item>
-      </el-sub-menu>
-      <el-menu-item index="search" @click="toSearch">
-        <el-icon><Search /></el-icon>
+        </ElMenuItem>
+      </ElSubMenu>
+      <ElMenuItem index="search" @click="toSearch">
+        <ElIcon><Search /></ElIcon>
         <template #title>
-          <el-text class="hidden-xs-only" size="large">{{
+          <ElText class="hidden-xs-only" size="large">{{
             $t("menuItem.search")
-          }}</el-text>
+          }}</ElText>
         </template>
-      </el-menu-item>
-      <el-menu-item index="upload">
-        <el-icon><Upload /></el-icon>
+      </ElMenuItem>
+      <ElMenuItem index="upload">
+        <ElIcon><Upload /></ElIcon>
         <template #title>
-          <el-text class="hidden-xs-only" size="large">{{
+          <ElText class="hidden-xs-only" size="large">{{
             $t("action.upload")
-          }}</el-text>
+          }}</ElText>
         </template>
-      </el-menu-item>
+      </ElMenuItem>
       <div class="flex-grow" />
-      <el-menu-item index="profile" @click="toProfile">
+      <ElMenuItem index="profile" @click="toProfile">
         <ProfileDiv />
-      </el-menu-item>
-    </el-menu>
-  </el-header>
+      </ElMenuItem>
+    </ElMenu>
+  </ElHeader>
 </template>
 
 <script lang="ts" setup>
@@ -84,7 +89,7 @@ const display = ref(true);
 let scrollValue = 0;
 window.addEventListener("scroll", () => {
   const offset = document.documentElement.scrollTop - scrollValue;
-  if (offset > 5 && scrollValue > 500) display.value = false;
+  if (offset > 5 && scrollValue > 600) display.value = false;
   else if (offset < -5) display.value = true;
   scrollValue = document.documentElement.scrollTop;
 });
@@ -97,13 +102,22 @@ const toProfile = () =>
 </script>
 
 <style scoped lang="css">
-.el-menu {
+.menu {
   padding: 0;
   width: 100%;
 }
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.header {
+  transition: 0.5s ease;
+}
+
+.invisible {
+  pointer-events: none;
+  opacity: 0;
 }
 
 div {

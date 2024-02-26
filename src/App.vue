@@ -1,12 +1,12 @@
 <template>
   <div style="display: flex">
     <AsideBar />
-    <el-container>
+    <ElContainer>
       <HeaderBar id="header-bar" />
-      <el-main>
-        <router-view />
-      </el-main>
-    </el-container>
+      <ElMain>
+        <RouterView />
+      </ElMain>
+    </ElContainer>
   </div>
 </template>
 
@@ -29,10 +29,6 @@ import AsideBar from "./components/MenuBar/AsideBar.vue";
   top: 0;
 }
 
-.el-header {
-  padding: 0;
-  width: 100%;
-}
 .header-placeholder {
   display: flex;
   height: 60px;
