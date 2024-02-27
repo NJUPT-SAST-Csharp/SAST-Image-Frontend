@@ -33,7 +33,10 @@ import { computed, ref } from "vue";
 import { i18n } from "../../locales/i18n";
 import { type UploadRawFile, type UploadRequestOptions } from "element-plus";
 import uploadImageApi from "../../network/apis/image/UploadImage";
-import auth from "../../stores/auth";
+import useAuthStore from "../../stores/auth";
+
+const auth = useAuthStore();
+
 const uploadRef = ref();
 
 interface ImageData {
@@ -58,7 +61,7 @@ const httpRequest = async (options: UploadRequestOptions) => {
     tags: [""],
   };
 
-  const response = await uploadImageApi(auth.jwtDto.value?.username!, file);
+  const response = await uploadImageApi(auth.username!, file);
   if (response.status < 300) {
     ElNotification.success({
       duration: 3000,

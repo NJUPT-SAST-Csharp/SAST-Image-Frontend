@@ -4,7 +4,7 @@
     :class="{ briefProfile: props.manual && props.collapse }"
   >
     <span id="avatar-span">
-      <ElAvatar :src="profile.getProfile().value?.avatar" fit="cover">
+      <ElAvatar :src="profile.avatar" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
       </ElAvatar>
     </span>
@@ -13,13 +13,15 @@
       :class="{ briefUsername: props.manual && props.collapse }"
       truncated
     >
-      {{ profile.getProfile().value?.nickname ?? $t("loginView.login") }}
+      {{ profile.nickname ?? $t("loginView.login") }}
     </ElText>
   </div>
 </template>
 
 <script setup lang="ts">
-import profile from "@/stores/profile";
+import useProfileStore from "@/stores/profile";
+
+const profile = useProfileStore();
 
 // 是否展开
 const props = defineProps({

@@ -1,5 +1,4 @@
 <template>
-  {{ src }}
   <div class="avatar">
     <ElUpload
       v-if="isEditable"
@@ -35,10 +34,12 @@
 
 <script setup lang="ts">
 import { i18n } from "@/locales/i18n";
-import auth from "@/stores/auth";
 import profile from "@/stores/profile";
 import { ElMessage, type UploadProps } from "element-plus";
 import { ref } from "vue";
+import useAuthStore from "@/stores/auth";
+
+const auth = useAuthStore();
 
 defineProps<{ src: string | null; isEditable: boolean }>();
 
@@ -47,7 +48,7 @@ const refreshHook = ref(Date.now());
 const emit = defineEmits(["updated"]);
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken(),
+  Authorization: "Bearer " + auth.token,
 };
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
@@ -65,7 +66,6 @@ const uploadSuccess = () => {
   ElMessage.success(i18n.global.t("uploadSuccess"));
   emit("updated");
   refreshHook.value = Date.now();
-  profile.refresh();
 };
 
 const uploadFail = () => ElMessage.error(i18n.global.t("uploadFail"));

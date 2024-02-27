@@ -1,7 +1,10 @@
 <template>
   <div>
-    <ProfileHeader :src="content?.header ?? ''" :isEditable="isEditable" />
-    <div>{{ content }}</div>
+    <ProfileHeader
+      :src="content?.header ?? ''"
+      :isEditable="isEditable"
+      @updated="fetchData"
+    />
     <div class="main-frame">
       <ProfileAvatar
         :src="content?.avatar!"
@@ -20,9 +23,12 @@ import ProfileHeader from "@/components/Profile/ProfileHeader.vue";
 import ProfileInfo from "@/components/Profile/ProfileInfo.vue";
 import ProfileTabs from "@/components/Profile/ProfileTabs.vue";
 import getProfile from "@/network/apis/profile/GetProfile";
-import auth from "@/stores/auth";
-import profile, { type ProfileContent } from "@/stores/profile";
+import useAuthStore from "@/stores/auth";
+import useProfileStore, { type ProfileContent } from "@/stores/profile";
 import { onMounted, ref } from "vue";
+
+const profile = useProfileStore();
+const auth = useAuthStore();
 
 const props = defineProps<{ username: string }>();
 
@@ -36,7 +42,7 @@ onMounted(async () => {
 const fetchData = async () => {
   const result = await getProfile(props.username, true);
   content.value = result.data;
-  if (content.value?.username == auth.jwtDto.value?.username) {
+  if (content.value?.username == auth.username) {
     profile.setProfile(content.value);
     isEditable.value = true;
   }
@@ -47,6 +53,5 @@ const fetchData = async () => {
 .main-frame {
   position: relative;
   height: 240px;
-  box-shadow: var(--el-box-shadow-lighter);
 }
 </style>

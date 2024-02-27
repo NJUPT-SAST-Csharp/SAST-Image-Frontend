@@ -1,4 +1,5 @@
-import { ref, type Ref } from "vue";
+import { computed, ref, type Ref } from "vue";
+import { defineStore } from "pinia";
 
 interface ProfileContent {
   username: string;
@@ -17,45 +18,48 @@ const init = (): ProfileContent | null => {
 
 const globalProfile = ref<ProfileContent | null>(init());
 
-const getProfile = (): Ref<ProfileContent | null> => {
-  return globalProfile;
-};
-
 function setProfile(profile: ProfileContent | null) {
-  globalProfile.value = profile;
   if (profile) {
+    refreshUrl(profile);
     localStorage.setItem("profile", JSON.stringify(profile));
   } else {
     localStorage.removeItem("profile");
   }
+  globalProfile.value = profile;
 }
 
-function refresh() {
-  const avatar = globalProfile.value?.avatar;
-  const header = globalProfile.value?.header;
+function refreshUrl(value: ProfileContent) {
+  const avatar = value.avatar;
+  const header = value.header;
   globalProfile.value = init();
   if (avatar) {
-    if (avatar.includes("?")) {
-      globalProfile.value!.avatar = avatar.split("?")[0] + `?${Date.now()}`;
-    } else {
-      globalProfile.value!.avatar = avatar + `?${Date.now()}`;
-    }
+    value.avatar = avatar.split("?")[0] + `?${Date.now()}`;
   }
   if (header) {
-    if (header.includes("?")) {
-      globalProfile.value!.header = header.split("?")[0] + `?${Date.now()}`;
-    } else {
-      globalProfile.value!.header = header + `?${Date.now()}`;
-    }
+    value.header = header.split("?")[0] + `?${Date.now()}`;
   }
-  setProfile(globalProfile.value);
 }
 
-const profile = {
-  refresh,
-  getProfile,
-  setProfile,
-};
+const useProfileStore = defineStore("profile", () => {
+  const username = computed(() => globalProfile.value?.username ?? null);
+  const nickname = computed(() => globalProfile.value?.nickname ?? null);
+  const biography = computed(() => globalProfile.value?.biography ?? null);
+  const avatar = computed(() => globalProfile.value?.avatar ?? null);
+  const header = computed(() => globalProfile.value?.header ?? null);
+  const website = computed(() => globalProfile.value?.website ?? null);
+  const birthday = computed(() => globalProfile.value?.birthday ?? null);
+
+  return {
+    setProfile,
+    username,
+    nickname,
+    biography,
+    avatar,
+    header,
+    website,
+    birthday,
+  };
+});
 
 export type { ProfileContent };
-export default profile;
+export default useProfileStore;

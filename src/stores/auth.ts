@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { computed, ref } from "vue";
-import profile from "./profile";
+import { defineStore } from "pinia";
 
 class JwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
@@ -26,14 +26,13 @@ const globalJwtDto = computed<JwtDto | null>(() => {
 });
 
 const getJwtDto = (): JwtDto | null => {
-  const token = getJwtToken();
+  const token = getJwtToken.value;
   if (!token) return null;
   const dto = parseJwtToken(token);
 
   if (checkExp(dto)) {
     return dto;
   } else {
-    setJwtToken(null);
     return null;
   }
 };
@@ -44,14 +43,13 @@ const setJwtToken = (value: string | null) => {
     internalJwtDto.value = parseJwtToken(value);
   } else {
     localStorage.removeItem("jwt");
-    profile.setProfile(null);
     internalJwtDto.value = null;
   }
 };
 
-const getJwtToken = (): string | null => {
+const getJwtToken = computed(() => {
   return localStorage.getItem("jwt");
-};
+});
 
 const parseJwtToken = (value: string): JwtDto => {
   const token = jwtDecode(value) as any;
@@ -63,18 +61,26 @@ const checkExp = (value: JwtDto | null): boolean => {
   return value != null && value.exp * 1000 > Date.now();
 };
 
-const isLoggedIn = (): boolean => {
+const isLoggedIn = computed(() => {
   if (checkExp(globalJwtDto.value)) return true;
   else {
     return false;
   }
-};
+});
 
-const auth = {
-  isLoggedIn,
-  jwtDto: globalJwtDto,
-  getToken: getJwtToken,
-  setToken: setJwtToken,
-};
+const useAuthStore = defineStore("auth", () => {
+  const username = computed(() => globalJwtDto.value?.username ?? null);
+  const roles = computed(() => globalJwtDto.value?.roles ?? null);
+  const id = computed(() => globalJwtDto.value?.id ?? null);
 
-export default auth;
+  return {
+    isLoggedIn,
+    username,
+    roles,
+    id,
+    token: getJwtToken,
+    setToken: setJwtToken,
+  };
+});
+
+export default useAuthStore;

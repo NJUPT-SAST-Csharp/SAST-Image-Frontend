@@ -84,9 +84,11 @@
 import { i18n } from "@/locales/i18n";
 import { computed, ref } from "vue";
 import { ElMessage, type UploadProps } from "element-plus";
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
 import updateProfile from "@/network/apis/profile/UpdateProfile";
 import type { ProfileContent } from "@/stores/profile";
+
+const auth = useAuthStore();
 
 const props = defineProps<{ modelValue: boolean; content: ProfileContent }>();
 const emit = defineEmits(["update:modelValue"]);
@@ -108,7 +110,7 @@ const editContent = ref({
 });
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken(),
+  Authorization: "Bearer " + auth.token,
 };
 
 const save = async () => {

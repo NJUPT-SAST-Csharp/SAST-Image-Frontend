@@ -32,7 +32,9 @@ import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { i18n } from "@/locales/i18n";
 import registerApi from "@/network/apis/account/CreateAccount";
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
+
+const auth = useAuthStore();
 
 const emits = defineEmits(["success"]);
 

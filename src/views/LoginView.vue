@@ -47,8 +47,10 @@ import { i18n } from "@/locales/i18n";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import loginApi from "../network/apis/account/Login";
-import auth from "../stores/auth";
+import useAuthStore from "../stores/auth";
 import router from "@/router";
+
+const auth = useAuthStore();
 
 const isLoading = ref(false);
 const loginDto = ref({ username: "", password: "" });
@@ -67,7 +69,7 @@ const login = async () => {
     ElMessage.success(i18n.global.t("loginView.loginSuccess"));
     router.push({
       name: "profile",
-      params: { username: auth.jwtDto.value?.username },
+      params: { username: auth.username },
     });
   }
 };

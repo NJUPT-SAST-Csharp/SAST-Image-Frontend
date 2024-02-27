@@ -86,8 +86,10 @@ import ProfileDiv from "./ProfileDiv.vue";
 import MainHomeDiv from "./MainHomeDiv.vue";
 import router from "@/router";
 import { computed, ref, watch } from "vue";
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
 import "element-plus/theme-chalk/display.css";
+
+const auth = useAuthStore();
 
 const collapsed = ref(true);
 
@@ -108,8 +110,7 @@ const currentView = computed(() => {
 // routers
 const toHome = () => router.push({ path: "/" });
 const toSearch = () => router.push({ name: "search" });
-const toProfile = () =>
-  router.push({ path: "/" + auth.jwtDto.value?.username });
+const toProfile = () => router.push({ path: "/" + auth.username });
 </script>
 
 <style scoped lang="css">

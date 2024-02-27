@@ -42,11 +42,14 @@
 <script setup lang="ts">
 import App from "@/App.vue";
 import { i18n } from "@/locales/i18n";
-import auth from "@/stores/auth";
 import { type UploadProps, type UploadInstance, ElMessage } from "element-plus";
 import { ref } from "vue";
+import useAuthStore from "@/stores/auth";
+
+const auth = useAuthStore();
 
 const props = defineProps<{ src: string | null; isEditable: boolean }>();
+const emit = defineEmits(["updated"]);
 
 const isLoading = ref(true);
 const isEmpty = ref(false);
@@ -65,7 +68,7 @@ const loadSuccess = () => {
 const headerRef = ref<UploadInstance>();
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken(),
+  Authorization: "Bearer " + auth.token,
 };
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
@@ -81,6 +84,7 @@ const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
 
 const uploadSuccess = () => {
   ElMessage.success(i18n.global.t("uploadSuccess"));
+  emit("updated");
   refreshHook.value = Date.now();
 };
 

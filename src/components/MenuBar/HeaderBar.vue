@@ -77,7 +77,10 @@ import { computed, ref } from "vue";
 import ProfileDiv from "./ProfileDiv.vue";
 import MainHomeDiv from "./MainHomeDiv.vue";
 import router from "@/router";
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
+
+const auth = useAuthStore();
+
 // 图标定位控制
 const currentView = computed(() => {
   var name = router.currentRoute.value.name;
@@ -97,8 +100,7 @@ window.addEventListener("scroll", () => {
 // routers
 const toHome = () => router.push({ path: "/" });
 const toSearch = () => router.push({ name: "search" });
-const toProfile = () =>
-  router.push({ path: "/" + auth.jwtDto.value?.username });
+const toProfile = () => router.push({ path: "/" + auth.username });
 </script>
 
 <style scoped lang="css">

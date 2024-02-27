@@ -1,5 +1,5 @@
 import axios, { type AxiosRequestHeaders, type AxiosResponse } from "axios"; // 使用前要先安装依赖：npm install axios
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
 
 // 创建axios实例
 const service = axios.create({
@@ -14,7 +14,8 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 这里可以进行请求加密等操作。如添加token,cookie，修改数据传输格式等
-    config.headers["Authorization"] = `Bearer ${auth.getToken()}`;
+    const auth = useAuthStore();
+    config.headers["Authorization"] = `Bearer ${auth.token}`;
     return config;
   },
   (error) => {

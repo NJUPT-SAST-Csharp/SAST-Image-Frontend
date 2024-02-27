@@ -1,6 +1,6 @@
 <template>
   <div class="edit-button">
-    <div v-if="auth.jwtDto.value?.username == content.username">
+    <div v-if="auth.username == content.username">
       <ElButton
         class="button"
         icon="Edit"
@@ -18,7 +18,7 @@
       </ElButton>
     </div>
     <ProfileEditDialog
-      v-if="auth.jwtDto.value?.username == content.username"
+      v-if="auth.username == content.username"
       v-model="isEditDialogOpen"
       :content="content"
     />
@@ -41,10 +41,14 @@
 import { i18n } from "@/locales/i18n";
 import { ref } from "vue";
 import ProfileEditDialog from "@/components/Profile/ProfileEditDialog.vue";
-import auth from "@/stores/auth";
+import useAuthStore from "@/stores/auth";
 import router from "@/router";
 import { ElMessage } from "element-plus";
 import type { ProfileContent } from "@/stores/profile";
+import useProfileStore from "@/stores/profile";
+
+const profile = useProfileStore();
+const auth = useAuthStore();
 
 defineProps<{ content: ProfileContent }>();
 
@@ -52,6 +56,7 @@ const isEditDialogOpen = ref(false);
 
 const logout = () => {
   auth.setToken(null);
+  profile.setProfile(null);
   router.push({ name: "login" });
   ElMessage.success(i18n.global.t("profileView.logout.success"));
 };

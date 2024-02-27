@@ -1,6 +1,7 @@
 import auth from "@/stores/auth";
 import { createRouter, createWebHistory } from "vue-router";
 import ProfileView from "@/views/ProfileView.vue";
+import useAuthStore from "@/stores/auth";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -52,8 +53,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
+  const auth = useAuthStore();
   // to.matched.some(record => record.meta.requiresAuth)
-  if (to.meta.requiresAuth && !auth.isLoggedIn()) {
+  if (to.meta.requiresAuth && !auth.isLoggedIn) {
     // 此路由需要授权，请检查是否已登录
     // 如果没有，则重定向到登录页面
     return {
