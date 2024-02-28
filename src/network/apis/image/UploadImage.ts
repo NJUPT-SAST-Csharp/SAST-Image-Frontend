@@ -1,8 +1,8 @@
-import request from "../../request"
+import request from "../../request";
 
 async function uploadImage(username: string, data: object) {
-  const content = await request.form("/api/Image", data)
-  return content
+  const content = await request.form("/api/Image", data);
+  return content;
 }
 
-export default uploadImage
+export default uploadImage;

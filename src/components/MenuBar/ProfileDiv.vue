@@ -1,39 +1,33 @@
 <template>
-  <div class="profile-div" :class="{ briefProfile: props.manual && props.collapse }">
+  <div
+    class="profile-div"
+    :class="{ briefProfile: props.manual && props.collapse }"
+  >
     <span id="avatar-span">
-      <el-avatar :src="avatarSrc" fit="cover">
+      <ElAvatar :src="profile.avatar" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
-      </el-avatar>
+      </ElAvatar>
     </span>
-    <el-text id="username" :class="{ briefUsername: props.manual && props.collapse }" truncated>
-      {{ auth.isLoggedIn() ? auth.getJwt()?.username : $t("loginView.login") }}
-    </el-text>
+    <ElText
+      id="username"
+      :class="{ briefUsername: props.manual && props.collapse }"
+      truncated
+    >
+      {{ profile.nickname ?? $t("loginView.login") }}
+    </ElText>
   </div>
 </template>
 
 <script setup lang="ts">
-import auth from "@/stores/auth"
-import getProfile from "@/network/apis/profile/GetProfile"
-import { computed, onMounted, ref } from "vue"
+import useProfileStore from "@/stores/profile";
+
+const profile = useProfileStore();
 
 // 是否展开
 const props = defineProps({
   manual: { type: Boolean, required: false },
-  collapse: { type: Boolean, required: false }
-})
-
-const avatarSrc = ref("")
-onMounted(async () => {
-  if (auth.isLoggedIn()) {
-    const content = await getProfile(auth.getJwt()?.username!, false)
-    if (content.status == 200) avatarSrc.value = content.data["avatar"]
-  }
-})
-
-const profileItemRouterPath = computed(() => {
-  if (auth.isLoggedIn()) return "/" + auth.getJwt()?.username!
-  else return "/login"
-})
+  collapse: { type: Boolean, required: false },
+});
 </script>
 
 <style scoped>

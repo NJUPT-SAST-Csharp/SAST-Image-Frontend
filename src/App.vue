@@ -1,18 +1,18 @@
 <template>
   <div style="display: flex">
-    <AsideBar class="hidden-sm-and-down" />
-    <el-container>
+    <AsideBar />
+    <ElContainer>
       <HeaderBar id="header-bar" />
-      <el-main>
-        <router-view />
-      </el-main>
-    </el-container>
+      <ElMain>
+        <RouterView />
+      </ElMain>
+    </ElContainer>
   </div>
 </template>
 
 <script setup lang="ts">
-import HeaderBar from "./components/MenuBar/HeaderBar.vue"
-import AsideBar from "./components/MenuBar/AsideBar.vue"
+import HeaderBar from "./components/MenuBar/HeaderBar.vue";
+import AsideBar from "./components/MenuBar/AsideBar.vue";
 </script>
 
 <style scoped>
@@ -29,10 +29,6 @@ import AsideBar from "./components/MenuBar/AsideBar.vue"
   top: 0;
 }
 
-.el-header {
-  padding: 0;
-  width: 100%;
-}
 .header-placeholder {
   display: flex;
   height: 60px;
