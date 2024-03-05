@@ -13,6 +13,16 @@
 <script setup lang="ts">
 import HeaderBar from "./components/MenuBar/HeaderBar.vue";
 import AsideBar from "./components/MenuBar/AsideBar.vue";
+import useAuthStore from "./stores/auth";
+import useProfileStore from "./stores/profile";
+
+const auth = useAuthStore();
+const profile = useProfileStore();
+
+if (auth.isLoggedIn == false) {
+  profile.setProfile(null);
+  auth.setToken(null);
+}
 </script>
 
 <style scoped>
