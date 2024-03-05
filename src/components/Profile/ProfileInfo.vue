@@ -1,27 +1,6 @@
 <template>
-  <div class="edit-button">
-    <div v-if="auth.username == content.username">
-      <ElButton
-        class="button"
-        icon="Edit"
-        @click="isEditDialogOpen = !isEditDialogOpen"
-      >
-        {{ $t("profileView.edit.profile") }}
-      </ElButton>
-      <ElButton
-        class="button"
-        icon="CircleCloseFilled"
-        type="danger"
-        @click="logout"
-      >
-        {{ $t("profileView.logout.description") }}
-      </ElButton>
-    </div>
-    <ProfileEditDialog
-      v-if="auth.username == content.username"
-      v-model="isEditDialogOpen"
-      :content="content"
-    />
+  <div class="panel">
+    <ProfileControlPanel :content="content" />
   </div>
   <div class="text">
     <ElSpace direction="vertical" alignment="normal" wrap size="large">
@@ -38,36 +17,14 @@
 </template>
 
 <script setup lang="ts">
-import { i18n } from "@/locales/i18n";
-import { ref } from "vue";
-import ProfileEditDialog from "@/components/Profile/ProfileEditDialog.vue";
-import useAuthStore from "@/stores/auth";
-import router from "@/router";
-import { ElMessage } from "element-plus";
+import ProfileControlPanel from "./ProfileControlPanel.vue";
 import type { ProfileContent } from "@/stores/profile";
-import useProfileStore from "@/stores/profile";
-
-const profile = useProfileStore();
-const auth = useAuthStore();
 
 defineProps<{ content: ProfileContent }>();
-
-const isEditDialogOpen = ref(false);
-
-const logout = () => {
-  auth.setToken(null);
-  profile.setProfile(null);
-  router.push({ name: "login" });
-  ElMessage.success(i18n.global.t("profileView.logout.success"));
-};
 </script>
 
 <style scoped>
-.button {
-  margin-top: 10%;
-}
-
-.edit-button {
+.panel {
   align-items: center;
   height: 60px;
   margin-left: auto;

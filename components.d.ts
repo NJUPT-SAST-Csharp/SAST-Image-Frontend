@@ -42,6 +42,7 @@ declare module 'vue' {
     ImageItem: typeof import('./src/components/ImageControl/ImageItem.vue')['default']
     MainHomeDiv: typeof import('./src/components/MenuBar/MainHomeDiv.vue')['default']
     ProfileAvatar: typeof import('./src/components/Profile/ProfileAvatar.vue')['default']
+    ProfileControlPanel: typeof import('./src/components/Profile/ProfileControlPanel.vue')['default']
     ProfileDiv: typeof import('./src/components/MenuBar/ProfileDiv.vue')['default']
     ProfileEditDialog: typeof import('./src/components/Profile/ProfileEditDialog.vue')['default']
     ProfileHeader: typeof import('./src/components/Profile/ProfileHeader.vue')['default']

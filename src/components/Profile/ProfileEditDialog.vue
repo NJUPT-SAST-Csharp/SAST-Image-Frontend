@@ -64,12 +64,9 @@
 <script setup lang="ts">
 import { i18n } from "@/locales/i18n";
 import { computed, ref } from "vue";
-import { ElMessage, type UploadProps } from "element-plus";
-import useAuthStore from "@/stores/auth";
+import { ElMessage } from "element-plus";
 import updateProfile from "@/network/apis/profile/UpdateProfile";
 import type { ProfileContent } from "@/stores/profile";
-
-const auth = useAuthStore();
 
 const props = defineProps<{ modelValue: boolean; content: ProfileContent }>();
 const emit = defineEmits(["update:modelValue"]);
@@ -90,10 +87,6 @@ const editContent = ref({
   birthday: props.content.birthday,
 });
 
-const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken,
-};
-
 const save = async () => {
   const response = await updateProfile({
     nickname: editContent.value.nickname,
@@ -107,17 +100,6 @@ const save = async () => {
   } else {
     uploadFail();
   }
-};
-
-const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {
-  if (rawFile.size / 1024 / 1024 > 3) {
-    ElMessage.error(i18n.global.t("profileView.edit.upload.exceed"));
-    return false;
-  } else if (!rawFile.type.startsWith("image")) {
-    ElMessage.error(i18n.global.t("profileView.edit.upload.formatError"));
-    return false;
-  }
-  return true;
 };
 
 const uploadSuccess = () =>
