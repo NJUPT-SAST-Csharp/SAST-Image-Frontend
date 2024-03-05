@@ -96,6 +96,7 @@ const menuItem = {
 };
 
 export const EN = {
+  collapse: "Collapse",
   updateHeader: "Update Header",
   uploadSuccess: "Upload Success",
   uploadFail: "Upload Failed",
