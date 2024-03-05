@@ -66,6 +66,8 @@ const login = async () => {
     ElMessage.error(i18n.global.t("loginView.loginFailed"));
   } else {
     auth.setToken(response.data["jwt"]);
+    console.log(auth.getToken);
+
     ElMessage.success(i18n.global.t("loginView.loginSuccess"));
     router.push({
       name: "profile",

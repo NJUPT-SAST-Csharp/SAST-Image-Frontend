@@ -15,25 +15,6 @@
         }}</ElText>
       </div>
     </template>
-    <div class="image-upload">
-      <ElUpload
-        ref="avatarRef"
-        accept="image/avif,image/bmp,image/jpeg,image/tiff,image/webp,image/svg+xml,image/png,image/gif"
-        name="avatarFile"
-        method="put"
-        action="/api/account/user/avatar"
-        :on-success="uploadSuccess"
-        :on-error="uploadFail"
-        :auto-upload="false"
-        :before-upload="beforeUpload"
-        :headers="uploadHeaders"
-        :show-file-list="false"
-      >
-        <ElButton icon="User" plain type="primary">
-          {{ $t("profileView.edit.avatar") }}
-        </ElButton>
-      </ElUpload>
-    </div>
     <ElForm label-position="top">
       <ElFormItem :label="i18n.global.t('profileView.profileItems.nickname')">
         <ElInput
@@ -110,7 +91,7 @@ const editContent = ref({
 });
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.token,
+  Authorization: "Bearer " + auth.getToken,
 };
 
 const save = async () => {
