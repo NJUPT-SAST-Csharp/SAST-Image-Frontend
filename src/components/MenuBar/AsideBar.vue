@@ -126,6 +126,7 @@ const toProfile = () => router.push({ path: "/" + auth.username });
   position: fixed;
   display: flex;
   overflow: hidden;
+  height: 100%;
   transition:
     width 1s ease,
     min-width 1s ease;
