@@ -68,7 +68,7 @@ const loadSuccess = () => {
 const headerRef = ref<UploadInstance>();
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken,
+  Authorization: "Bearer " + auth.getToken(),
 };
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {

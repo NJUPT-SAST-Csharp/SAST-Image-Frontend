@@ -7,7 +7,7 @@
     />
     <div class="main-frame">
       <ProfileAvatar
-        :src="content?.avatar!"
+        :src="content?.avatar ?? null"
         :isEditable="isEditable"
         @updated="fetchData"
       />
@@ -25,6 +25,7 @@ import ProfileTabs from "@/components/Profile/ProfileTabs.vue";
 import getProfile from "@/network/apis/profile/GetProfile";
 import useAuthStore from "@/stores/auth";
 import useProfileStore, { type ProfileContent } from "@/stores/profile";
+import { ElBacktop } from "element-plus";
 import { onMounted, ref } from "vue";
 
 const profile = useProfileStore();

@@ -7,6 +7,7 @@
         <RouterView />
       </ElMain>
     </ElContainer>
+    <ElBacktop :bottom="100" :visibility-height="600" />
   </div>
 </template>
 

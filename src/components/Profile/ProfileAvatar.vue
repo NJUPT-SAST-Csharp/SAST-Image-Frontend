@@ -5,7 +5,7 @@
       ref="avatarRef"
       name="avatarFile"
       method="put"
-      action="/api/account/profile/avatar"
+      action="/api/profile/avatar"
       :on-success="uploadSuccess"
       :on-error="uploadFail"
       :before-upload="beforeUpload"
@@ -48,7 +48,7 @@ const refreshHook = ref(Date.now());
 const emit = defineEmits(["updated"]);
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.getToken,
+  Authorization: "Bearer " + auth.getToken(),
 };
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {

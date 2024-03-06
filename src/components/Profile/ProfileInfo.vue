@@ -1,6 +1,9 @@
 <template>
   <div class="panel">
-    <ProfileControlPanel :content="content" />
+    <ProfileControlPanel
+      v-if="auth.username == content.username"
+      :content="content"
+    />
   </div>
   <div class="text">
     <ElSpace direction="vertical" alignment="normal" wrap size="large">
@@ -17,8 +20,11 @@
 </template>
 
 <script setup lang="ts">
+import useAuthStore from "@/stores/auth";
 import ProfileControlPanel from "./ProfileControlPanel.vue";
 import type { ProfileContent } from "@/stores/profile";
+
+const auth = useAuthStore();
 
 defineProps<{ content: ProfileContent }>();
 </script>

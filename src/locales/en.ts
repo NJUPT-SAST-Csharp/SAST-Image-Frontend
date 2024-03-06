@@ -83,19 +83,12 @@ const registerView = {
   },
 };
 
-const menuItem = {
+export const EN = {
   home: "Home",
   explore: "Explore",
   search: "Search",
-  exploreSubItem: {
-    recent: "Recent",
-    following: "Following",
-    popular: "Pupular",
-    likes: "Likes",
-  },
-};
-
-export const EN = {
+  images: "Images",
+  albums: "Albums",
   collapse: "Collapse",
   updateHeader: "Update Header",
   uploadSuccess: "Upload Success",
@@ -112,5 +105,4 @@ export const EN = {
   profileView,
   uploadView,
   imageOption,
-  menuItem,
 };

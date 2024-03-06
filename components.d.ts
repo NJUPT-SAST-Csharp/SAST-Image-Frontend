@@ -7,9 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AlbumListHeader: typeof import('./src/components/AlbumList/AlbumListHeader.vue')['default']
     AsideBar: typeof import('./src/components/MenuBar/AsideBar.vue')['default']
     ComplementStep: typeof import('./src/components/RegisterSteps/ComplementStep.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
@@ -41,6 +43,7 @@ declare module 'vue' {
     ImageContainer: typeof import('./src/components/ImageControl/ImageContainer.vue')['default']
     ImageItem: typeof import('./src/components/ImageControl/ImageItem.vue')['default']
     MainHomeDiv: typeof import('./src/components/MenuBar/MainHomeDiv.vue')['default']
+    MenuItemGroup: typeof import('./src/components/MenuBar/MenuItemGroup.vue')['default']
     ProfileAvatar: typeof import('./src/components/Profile/ProfileAvatar.vue')['default']
     ProfileControlPanel: typeof import('./src/components/Profile/ProfileControlPanel.vue')['default']
     ProfileDiv: typeof import('./src/components/MenuBar/ProfileDiv.vue')['default']
