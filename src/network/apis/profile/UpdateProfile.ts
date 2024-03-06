@@ -1,7 +1,7 @@
 import request from "../../request";
 
 async function updateProfile(profile: UpdateProfileDto) {
-  const content = await request.put("/api/account/user/profile", profile);
+  const content = await request.put("/api/profile", profile);
   return content;
 }
 

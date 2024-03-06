@@ -31,6 +31,11 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
+      path: "/albums",
+      name: "albums",
+      component: () => import("../views/AlbumsView.vue"),
+    },
+    {
       path: "/:username",
       name: "profile",
       component: ProfileView,

@@ -17,7 +17,7 @@
       @load="loadSuccess"
     >
       <template #error>
-        <div />
+        <div></div>
       </template>
     </ElImage>
     <ElUpload
@@ -25,7 +25,7 @@
       class="edit-block"
       name="headerFile"
       method="put"
-      action="/api/account/user/header"
+      action="/api/profile/header"
       :on-success="uploadSuccess"
       :on-error="uploadFail"
       :before-upload="beforeUpload"
@@ -68,7 +68,7 @@ const loadSuccess = () => {
 const headerRef = ref<UploadInstance>();
 
 const uploadHeaders = {
-  Authorization: "Bearer " + auth.token,
+  Authorization: "Bearer " + auth.getToken(),
 };
 
 const beforeUpload: UploadProps["beforeUpload"] = (rawFile) => {

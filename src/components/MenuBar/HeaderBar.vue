@@ -16,54 +16,9 @@
         <MainHomeDiv />
       </ElMenuItem>
       <div class="flex-grow" />
-      <ElSubMenu index="explore">
-        <template #title>
-          <ElIcon><Guide /></ElIcon>
-          <ElText class="hidden-xs-only" size="large">{{
-            $t("menuItem.explore")
-          }}</ElText>
-        </template>
-        <ElMenuItem index="2-1">
-          <template #title>
-            <ElIcon><Clock /></ElIcon>
-            <ElText>{{ $t("menuItem.exploreSubItem.recent") }}</ElText>
-          </template>
-        </ElMenuItem>
-        <ElMenuItem index="2-2">
-          <template #title>
-            <ElIcon><Collection /></ElIcon>
-            <ElText>{{ $t("menuItem.exploreSubItem.following") }}</ElText>
-          </template>
-        </ElMenuItem>
-        <ElMenuItem index="2-3">
-          <template #title>
-            <ElIcon><Orange /></ElIcon>
-            <ElText>{{ $t("menuItem.exploreSubItem.popular") }}</ElText>
-          </template>
-        </ElMenuItem>
-        <ElMenuItem index="2-4">
-          <template #title>
-            <ElIcon><Star /></ElIcon>
-            <ElText>{{ $t("menuItem.exploreSubItem.likes") }}</ElText>
-          </template>
-        </ElMenuItem>
-      </ElSubMenu>
-      <ElMenuItem index="search" @click="toSearch">
-        <ElIcon><Search /></ElIcon>
-        <template #title>
-          <ElText class="hidden-xs-only" size="large">{{
-            $t("menuItem.search")
-          }}</ElText>
-        </template>
-      </ElMenuItem>
-      <ElMenuItem index="upload">
-        <ElIcon><Upload /></ElIcon>
-        <template #title>
-          <ElText class="hidden-xs-only" size="large">{{
-            $t("action.upload")
-          }}</ElText>
-        </template>
-      </ElMenuItem>
+
+      <MenuItemGroup />
+
       <div class="flex-grow" />
       <ElMenuItem index="profile" @click="toProfile">
         <ProfileDiv />
@@ -78,6 +33,7 @@ import ProfileDiv from "./ProfileDiv.vue";
 import MainHomeDiv from "./MainHomeDiv.vue";
 import router from "@/router";
 import useAuthStore from "@/stores/auth";
+import MenuItemGroup from "./MenuItemGroup.vue";
 
 const auth = useAuthStore();
 

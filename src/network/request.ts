@@ -15,7 +15,9 @@ service.interceptors.request.use(
   (config) => {
     // 这里可以进行请求加密等操作。如添加token,cookie，修改数据传输格式等
     const auth = useAuthStore();
-    config.headers["Authorization"] = `Bearer ${auth.token}`;
+    console.log(auth.getToken());
+
+    config.headers["Authorization"] = `Bearer ${auth.getToken()}`;
     return config;
   },
   (error) => {
@@ -32,7 +34,7 @@ service.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error.response);
+    console.log(error);
     return error.response;
   },
 );
@@ -71,7 +73,6 @@ const http = {
       data: data ? data : {},
     };
     const response = await service(config);
-    console.log(response.data);
     return {
       status: response.status,
       data:
