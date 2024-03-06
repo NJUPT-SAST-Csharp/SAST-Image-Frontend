@@ -1,52 +1,59 @@
 <template>
-  <el-form-item>
-    <el-input v-model="email" maxlength="20">
+  <ElFormItem>
+    <ElInput v-model="email" maxlength="20">
       <template #prepend>
         {{ $t("registerView.email") }}
       </template>
-    </el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="info" icon="ArrowLeft" @click="router.push('/login')">
+    </ElInput>
+  </ElFormItem>
+  <ElFormItem>
+    <span style="width: 50px" />
+    <ElButton type="info" icon="ArrowLeft" @click="router.push('/login')">
       {{ $t("registerView.backToLogin") }}
-    </el-button>
-    <el-button type="primary" @click="sendToken" :loading="isLoading" :disabled="isCountdown">
-      <el-countdown
+    </ElButton>
+    <ElButton
+      type="primary"
+      @click="sendToken"
+      :loading="isLoading"
+      :disabled="isCountdown"
+    >
+      <ElCountdown
         v-if="isCountdown"
         :value="global.countdown"
         @finish="isCountdown = false"
         format="ss"
       />
       <span v-else>{{ $t("action.confirm") }}</span>
-    </el-button>
-  </el-form-item>
+    </ElButton>
+  </ElFormItem>
 </template>
 
 <script setup lang="ts">
-import { i18n } from "@/locales/i18n"
-import { ElMessage } from "element-plus"
-import { ref } from "vue"
-import router from "@/router"
-import global from "@/stores/global"
-import sendCodeApi from "@/network/apis/account/SendRegisterCode"
+import { i18n } from "@/locales/i18n";
+import { ElMessage } from "element-plus";
+import { ref } from "vue";
+import router from "@/router";
+import global from "@/stores/global";
+import sendCodeApi from "@/network/apis/account/SendRegisterCode";
 
-const isCountdown = ref(true)
-const email = ref("")
+const isCountdown = ref(true);
+const email = ref("");
 
-const emit = defineEmits(["next"])
+const emit = defineEmits(["next"]);
 
 const sendToken = async () => {
-  isLoading.value = true
-  const content = await sendCodeApi(email.value)
+  isLoading.value = true;
+  const content = await sendCodeApi(email.value);
   if (content.status < 300) {
-    ElMessage.success(i18n.global.t("registerView.sendTokenSuccess"))
-    global.countdown = Date.now() + 1000 * 60
-    sessionStorage.setItem("email", email.value)
-    emit("next")
-  } else if (content.status == 409) ElMessage.error(i18n.global.t("registerView.emailConflict"))
-  else ElMessage.error(i18n.global.t("registerView.sendTokenFailed"))
-  isLoading.value = false
-}
+    ElMessage.success(i18n.global.t("registerView.sendTokenSuccess"));
+    global.countdown = Date.now() + 1000 * 60;
+    sessionStorage.setItem("email", email.value);
+    emit("next");
+  } else if (content.status == 400)
+    ElMessage.error(i18n.global.t("registerView.emailInvalid"));
+  else ElMessage.error(i18n.global.t("registerView.sendTokenFailed"));
+  isLoading.value = false;
+};
 
-const isLoading = ref(false)
+const isLoading = ref(false);
 </script>

@@ -1,18 +1,29 @@
 <template>
   <div style="display: flex">
-    <AsideBar class="hidden-sm-and-down" />
-    <el-container>
+    <AsideBar />
+    <ElContainer>
       <HeaderBar id="header-bar" />
-      <el-main>
-        <router-view />
-      </el-main>
-    </el-container>
+      <ElMain>
+        <RouterView />
+      </ElMain>
+    </ElContainer>
+    <ElBacktop :bottom="100" :visibility-height="600" />
   </div>
 </template>
 
 <script setup lang="ts">
-import HeaderBar from "./components/MenuBar/HeaderBar.vue"
-import AsideBar from "./components/MenuBar/AsideBar.vue"
+import HeaderBar from "./components/MenuBar/HeaderBar.vue";
+import AsideBar from "./components/MenuBar/AsideBar.vue";
+import useAuthStore from "./stores/auth";
+import useProfileStore from "./stores/profile";
+
+const auth = useAuthStore();
+const profile = useProfileStore();
+
+if (auth.isLoggedIn == false) {
+  profile.setProfile(null);
+  auth.setToken(null);
+}
 </script>
 
 <style scoped>
@@ -29,10 +40,6 @@ import AsideBar from "./components/MenuBar/AsideBar.vue"
   top: 0;
 }
 
-.el-header {
-  padding: 0;
-  width: 100%;
-}
 .header-placeholder {
   display: flex;
   height: 60px;

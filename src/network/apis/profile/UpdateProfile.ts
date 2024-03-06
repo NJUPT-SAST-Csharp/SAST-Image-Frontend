@@ -1,9 +1,15 @@
-import type { ProfileContent } from "@/views/ProfileView.vue"
-import request from "../../request"
+import request from "../../request";
 
-async function updateProfile(nickname: string, biography: string | null, website: string | null) {
-  const content = await request.put("/api/Profile", { nickname, biography, website })
-  return content
+async function updateProfile(profile: UpdateProfileDto) {
+  const content = await request.put("/api/profile", profile);
+  return content;
 }
 
-export default updateProfile
+interface UpdateProfileDto {
+  nickname: string;
+  biography: string | null;
+  birthday: string | null;
+  website: string | null;
+}
+
+export default updateProfile;

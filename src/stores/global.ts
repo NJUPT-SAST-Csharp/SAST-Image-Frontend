@@ -1,6 +1,6 @@
-import { reactive } from "vue"
+import { reactive } from "vue";
 const global = {
-  countdown: 0
-}
+  countdown: 0,
+};
 
-export default reactive(global)
+export default reactive(global);

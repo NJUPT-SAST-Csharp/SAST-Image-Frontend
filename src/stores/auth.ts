@@ -1,61 +1,89 @@
-import jwtDecode from "jwt-decode"
+import jwtDecode from "jwt-decode";
+import { computed, ref } from "vue";
+import { defineStore } from "pinia";
 
-class jwtDto {
+class JwtDto {
   constructor(username: string, roles: string[], id: number, exp: number) {
-    this.username = username
-    this.roles = roles
-    this.id = id
-    this.exp = exp
+    this.username = username;
+    this.roles = roles;
+    this.id = id;
+    this.exp = exp;
   }
-  username: string
-  roles: string[]
-  id: number
-  exp: number
+  username: string;
+  roles: string[];
+  id: number;
+  exp: number;
 }
 
-const getJwt = (): jwtDto | null => {
-  const token = getJwtToken()
-  if (!token) return null
-  const dto = parseJwtToken(token)
+const parseJwtToken = (value: string): JwtDto => {
+  const token = jwtDecode(value) as any;
+  const jwt = new JwtDto(token.Username, token.Roles, token.Id, token.exp);
+  return jwt;
+};
 
-  if (checkExp(dto)) {
-    return dto
-  } else {
-    setJwtToken(null)
-    return null
+const fetchFromStorage = () => {
+  const jwt = localStorage.getItem("jwt");
+  if (!jwt) return null;
+  else return parseJwtToken(jwt);
+};
+
+const jwtDto = ref<JwtDto | null>(fetchFromStorage());
+const token = ref<string | null>(localStorage.getItem("jwt"));
+
+const getJwtDto = computed((): JwtDto | null => {
+  if (jwtDto.value == null) {
+    jwtDto.value = fetchFromStorage();
   }
-}
+  if (checkExp(jwtDto.value)) return jwtDto.value;
+  else {
+    setJwtToken(null);
+    return null;
+  }
+});
 
 const setJwtToken = (value: string | null) => {
-  if (value) sessionStorage.setItem("jwt", value)
-  else sessionStorage.removeItem("jwt")
-}
+  if (value) {
+    localStorage.setItem("jwt", value);
+    token.value = value;
+    jwtDto.value = parseJwtToken(value);
+  } else {
+    localStorage.removeItem("jwt");
+    token.value = null;
+    jwtDto.value = null;
+  }
+};
 
-const getJwtToken = (): string | null => {
-  return sessionStorage.getItem("jwt")
-}
+const getJwtToken = () => {
+  if (!token.value) {
+    token.value = localStorage.getItem("jwt");
+  }
+  return token.value;
+};
 
-const parseJwtToken = (value: string): jwtDto => {
-  const token = jwtDecode(value) as any
-  const jwt = new jwtDto(token.Username, token.Roles, token.Id, token.exp)
-  return jwt
-}
+const checkExp = (value: JwtDto | null): boolean => {
+  return value != null && value.exp * 1000 > Date.now();
+};
 
-const checkExp = (value: jwtDto): boolean => {
-  if (value.exp * 1000 > Date.now()) return true
-  else return false
-}
+const isLoggedIn = computed(() => {
+  if (checkExp(getJwtDto.value)) return true;
+  else {
+    return false;
+  }
+});
 
-const isLoggedIn = (): boolean => {
-  if (getJwt()) return true
-  else return false
-}
+const useAuthStore = defineStore("auth", () => {
+  const username = computed(() => getJwtDto.value?.username ?? null);
+  const roles = computed(() => getJwtDto.value?.roles ?? null);
+  const id = computed(() => getJwtDto.value?.id ?? null);
 
-const auth = {
-  getJwt,
-  isLoggedIn,
-  getToken: getJwtToken,
-  setToken: setJwtToken
-}
+  return {
+    isLoggedIn,
+    username,
+    roles,
+    id,
+    getToken: getJwtToken,
+    setToken: setJwtToken,
+  };
+});
 
-export default auth
+export default useAuthStore;
