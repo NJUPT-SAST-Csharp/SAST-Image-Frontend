@@ -7,7 +7,10 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AlbumItem: typeof import('./src/components/AlbumList/AlbumItem.vue')['default']
+    AlbumListBody: typeof import('./src/components/AlbumList/AlbumListBody.vue')['default']
     AlbumListHeader: typeof import('./src/components/AlbumList/AlbumListHeader.vue')['default']
+    AlbumListItem: typeof import('./src/components/AlbumList/AlbumListItem.vue')['default']
     AsideBar: typeof import('./src/components/MenuBar/AsideBar.vue')['default']
     ComplementStep: typeof import('./src/components/RegisterSteps/ComplementStep.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -16,7 +19,6 @@ declare module 'vue' {
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
-    ElCountdown: typeof import('element-plus/es')['ElCountdown']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -32,8 +34,6 @@ declare module 'vue' {
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElSpace: typeof import('element-plus/es')['ElSpace']
-    ElStep: typeof import('element-plus/es')['ElStep']
-    ElSteps: typeof import('element-plus/es')['ElSteps']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
