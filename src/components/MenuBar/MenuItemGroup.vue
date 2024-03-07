@@ -23,12 +23,6 @@
       <ElText class="text" size="large">{{ $t("search") }}</ElText>
     </template>
   </ElMenuItem>
-  <ElMenuItem index="upload">
-    <ElIcon><Upload /></ElIcon>
-    <template #title>
-      <ElText class="text" size="large">{{ $t("action.upload") }}</ElText>
-    </template>
-  </ElMenuItem>
 </template>
 
 <script setup lang="ts">
@@ -38,7 +32,7 @@ const toSearch = () => router.push({ name: "search" });
 const toAlbums = () => router.push({ name: "albums" });
 </script>
 
-<style scoped lang="css">
+<style lang="css">
 .text {
   display: block;
 }
@@ -48,7 +42,16 @@ const toAlbums = () => router.push({ name: "albums" });
     display: none;
   }
 }
+
 .el-menu-item.is-active {
   color: #303133;
+}
+.el-menu--collapse .el-sub-menu.is-active .el-sub-menu__title {
+  color: #303133;
+  border-bottom-color: #404143;
+}
+.el-sub-menu.is-active .el-sub-menu__title {
+  color: #303133;
+  border-bottom-color: #303133;
 }
 </style>
