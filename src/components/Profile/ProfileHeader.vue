@@ -1,14 +1,14 @@
 <template>
   <div class="header-frame">
-    <ElSkeleton style="height: 240px" animated :throttle="500" v-if="isLoading">
+    <ElSkeleton style="height: 40vh" animated v-if="isLoading">
       <template #template>
-        <ElSkeletonItem variant="image" style="height: 240px" />
+        <ElSkeletonItem variant="image" style="height: 40vh" />
       </template>
     </ElSkeleton>
     <ElImage
       :style="{
-        width: 100 + '%',
-        height: isEmpty ? 80 + 'px' : 50 + 'vh',
+        width: '100%',
+        height: isEmpty ? '80px' : '40vh',
         display: isLoading ? 'none' : 'block',
       }"
       :src="props.src + '?' + refreshHook"
@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import App from "@/App.vue";
 import { i18n } from "@/locales/i18n";
 import { type UploadProps, type UploadInstance, ElMessage } from "element-plus";
 import { ref } from "vue";

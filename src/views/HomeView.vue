@@ -1,6 +1,8 @@
 <template>
-  <div>I'm home page</div>
-  <div id="test"></div>
+  <div>
+    <div>I'm home page</div>
+    <div id="test"></div>
+  </div>
 </template>
 
 <script setup lang="ts"></script>

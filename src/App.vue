@@ -4,7 +4,11 @@
     <ElContainer>
       <HeaderBar id="header-bar" />
       <ElMain>
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+          <Transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </Transition>
+        </RouterView>
       </ElMain>
     </ElContainer>
     <ElBacktop :bottom="100" :visibility-height="600" />
@@ -65,5 +69,15 @@ if (auth.isLoggedIn == false) {
 #logo {
   height: 30px;
   margin: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

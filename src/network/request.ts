@@ -15,8 +15,6 @@ service.interceptors.request.use(
   (config) => {
     // 这里可以进行请求加密等操作。如添加token,cookie，修改数据传输格式等
     const auth = useAuthStore();
-    console.log(auth.getToken());
-
     config.headers["Authorization"] = `Bearer ${auth.getToken()}`;
     return config;
   },
