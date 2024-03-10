@@ -48,10 +48,10 @@
 import ProfileDiv from "./ProfileDiv.vue";
 import MainHomeDiv from "./MainHomeDiv.vue";
 import router from "@/router";
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import useAuthStore from "@/stores/auth";
 import "element-plus/theme-chalk/display.css";
-import { ElIcon, ElMenu, ElMenuItem, ElSubMenu, ElText } from "element-plus";
+import { ElIcon, ElMenu, ElMenuItem, ElText } from "element-plus";
 import MenuItemGroup from "./MenuItemGroup.vue";
 
 const auth = useAuthStore();
@@ -65,6 +65,7 @@ watch(collapsed, (newVal) => {
     width.value = newVal ? 65 : 180;
   }, 0);
 });
+
 // routers
 const toHome = () => router.push({ path: "/" });
 const toProfile = () => router.push({ path: "/" + auth.username });

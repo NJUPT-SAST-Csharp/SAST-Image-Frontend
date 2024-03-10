@@ -6,7 +6,20 @@
       <ElMain>
         <RouterView v-slot="{ Component }">
           <Transition name="fade" mode="out-in">
-            <component :is="Component" />
+            <component
+              :is="Component"
+              :key="$route.name"
+              v-if="!$route.meta.keepAlive"
+            />
+          </Transition>
+          <Transition name="fade" mode="out-in">
+            <KeepAlive>
+              <component
+                :is="Component"
+                :key="$route.name"
+                v-if="$route.meta.keepAlive"
+              />
+            </KeepAlive>
           </Transition>
         </RouterView>
       </ElMain>
@@ -73,7 +86,7 @@ if (auth.isLoggedIn == false) {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
 }
 
 .fade-enter-from,

@@ -7,6 +7,7 @@ declare module "vue-router" {
   interface RouteMeta {
     // 每个路由都必须声明
     requiresAuth: boolean;
+    keepAlive: boolean;
   }
 }
 
@@ -14,52 +15,52 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      // 重定向
       path: "/home",
       redirect: "/",
-      meta: { requiresAuth: false },
     },
     {
       path: "/",
       name: "home",
       component: () => import("../views/HomeView.vue"),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: false, keepAlive: true },
     },
     {
       path: "/search",
       name: "search",
       component: () => import("../views/SearchView.vue"),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: true, keepAlive: true },
     },
     {
       path: "/albums",
       name: "albums",
       component: () => import("../views/AlbumsView.vue"),
+      meta: { requiresAuth: false, keepAlive: true },
     },
     {
       path: "/:username",
       name: "profile",
       component: ProfileView,
       props: true,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, keepAlive: false },
     },
     {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: false, keepAlive: false },
     },
     {
       path: "/register",
       name: "register",
       component: () => import("../views/RegisterView.vue"),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: false, keepAlive: false },
     },
   ],
 });
 
 router.beforeEach((to, from) => {
   const auth = useAuthStore();
-  // to.matched.some(record => record.meta.requiresAuth)
   if (to.meta.requiresAuth && !auth.isLoggedIn) {
     // 此路由需要授权，请检查是否已登录
     // 如果没有，则重定向到登录页面
@@ -67,6 +68,11 @@ router.beforeEach((to, from) => {
       path: "/login",
     };
   }
+
+  if (to.path === "/" + auth.username) {
+    to.meta.keepAlive = true;
+  }
+
   const oriName: string = to.name?.toString()!;
   console.log(oriName);
   window.document.title =
