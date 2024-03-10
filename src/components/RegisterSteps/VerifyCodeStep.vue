@@ -77,3 +77,4 @@ const sendToken = async () => {
 };
 </script>
 @/network/apis/account/VerifyRegisterCode@/network/apis/account/SendRegisterCode
+@/stores/dialogs

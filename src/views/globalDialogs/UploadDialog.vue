@@ -5,7 +5,7 @@
     draggable
     destroy-on-close
     width="664px"
-    v-model="value"
+    v-model="dialogs.uploadImageDialogStatus"
   >
     <template #header>
       <ElText size="large">{{ $t("action.upload") }}</ElText>
@@ -34,7 +34,9 @@ import { i18n } from "../../locales/i18n";
 import { type UploadRawFile, type UploadRequestOptions } from "element-plus";
 import uploadImageApi from "../../network/apis/image/UploadImage";
 import useAuthStore from "../../stores/auth";
+import useDialogStore from "@/stores/dialogs";
 
+const dialogs = useDialogStore();
 const auth = useAuthStore();
 
 const uploadRef = ref();
@@ -83,15 +85,6 @@ const httpRequest = async (options: UploadRequestOptions) => {
 };
 
 const props = defineProps<{ modelValue: boolean }>();
-const emit = defineEmits(["update:modelValue"]);
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
 </script>
 
 <style scoped>
@@ -99,3 +92,4 @@ const value = computed({
   width: 100%;
 }
 </style>
+@/stores/dialogs
