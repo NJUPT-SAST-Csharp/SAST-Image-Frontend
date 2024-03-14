@@ -2,6 +2,7 @@ import { computed, ref, type Ref } from "vue";
 import { defineStore } from "pinia";
 
 interface ProfileContent {
+  id: number;
   username: string;
   nickname: string;
   biography: string;

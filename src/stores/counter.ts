@@ -8,7 +8,7 @@ const useCounterStore = defineStore("counter", () => {
     count.value = sec;
     id = setInterval(() => {
       count.value--;
-      if (count.value === 0) {
+      if (count.value <= 0) {
         stop();
         action();
       }

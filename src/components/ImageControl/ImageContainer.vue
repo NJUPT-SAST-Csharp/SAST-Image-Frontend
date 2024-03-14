@@ -5,7 +5,7 @@
         <ElSkeletonItem variant="image" />
       </template>
       <template #default>
-        <ElEmpty v-if="isEmpty" />
+        <ElEmpty v-if="isEmpty" description="No images." />
         <div v-else class="main-frame" v-infinite-scroll="getImages">
           <div class="items" v-for="image in images" :key="image.Id">
             <ImageItem :src="image.Url" />

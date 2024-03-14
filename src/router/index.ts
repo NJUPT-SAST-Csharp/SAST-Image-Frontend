@@ -1,4 +1,3 @@
-import auth from "@/stores/auth";
 import { createRouter, createWebHistory } from "vue-router";
 import ProfileView from "@/views/ProfileView.vue";
 import useAuthStore from "@/stores/auth";
@@ -7,7 +6,6 @@ declare module "vue-router" {
   interface RouteMeta {
     // 每个路由都必须声明
     requiresAuth: boolean;
-    keepAlive: boolean;
   }
 }
 
@@ -23,38 +21,38 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: () => import("../views/HomeView.vue"),
-      meta: { requiresAuth: false, keepAlive: true },
+      meta: { requiresAuth: false },
     },
     {
       path: "/search",
       name: "search",
       component: () => import("../views/SearchView.vue"),
-      meta: { requiresAuth: true, keepAlive: true },
+      meta: { requiresAuth: true },
     },
     {
       path: "/albums",
       name: "albums",
       component: () => import("../views/AlbumsView.vue"),
-      meta: { requiresAuth: false, keepAlive: true },
+      meta: { requiresAuth: false },
     },
     {
       path: "/:username",
       name: "profile",
       component: ProfileView,
       props: true,
-      meta: { requiresAuth: true, keepAlive: false },
+      meta: { requiresAuth: true },
     },
     {
       path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
-      meta: { requiresAuth: false, keepAlive: false },
+      meta: { requiresAuth: false },
     },
     {
       path: "/register",
       name: "register",
       component: () => import("../views/RegisterView.vue"),
-      meta: { requiresAuth: false, keepAlive: false },
+      meta: { requiresAuth: false },
     },
   ],
 });
@@ -67,10 +65,6 @@ router.beforeEach((to, from) => {
     return {
       path: "/login",
     };
-  }
-
-  if (to.path === "/" + auth.username) {
-    to.meta.keepAlive = true;
   }
 
   const oriName: string = to.name?.toString()!;

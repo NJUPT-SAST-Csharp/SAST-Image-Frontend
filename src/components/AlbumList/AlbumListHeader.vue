@@ -20,8 +20,7 @@ import { ref, defineProps, onMounted } from "vue";
 
 defineProps<{ title: string }>();
 const categories = ref<CategoryDto[]>([]);
-const categoryId = defineModel("category", {
-  type: Number,
+const categoryId = defineModel<number>("category", {
   default: 0,
 });
 

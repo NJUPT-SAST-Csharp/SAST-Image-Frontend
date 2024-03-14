@@ -7,7 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AlbumItem: typeof import('./src/components/AlbumList/AlbumItem.vue')['default']
+    AlbumContainer: typeof import('./src/components/AlbumControl/AlbumContainer.vue')['default']
+    AlbumItem: typeof import('./src/components/AlbumControl/AlbumItem.vue')['default']
     AlbumListBody: typeof import('./src/components/AlbumList/AlbumListBody.vue')['default']
     AlbumListHeader: typeof import('./src/components/AlbumList/AlbumListHeader.vue')['default']
     AlbumListItem: typeof import('./src/components/AlbumList/AlbumListItem.vue')['default']
@@ -58,6 +59,9 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SendCodeStep: typeof import('./src/components/RegisterSteps/SendCodeStep.vue')['default']
+    UserAlbumListBody: typeof import('./src/components/UserAlbumList/UserAlbumListBody.vue')['default']
+    UserAlbumListHeader: typeof import('./src/components/UserAlbumList/UserAlbumListHeader.vue')['default']
+    UserAlbumListItem: typeof import('./src/components/UserAlbumList/UserAlbumListItem.vue')['default']
     VerifyCodeStep: typeof import('./src/components/RegisterSteps/VerifyCodeStep.vue')['default']
   }
   export interface ComponentCustomProperties {

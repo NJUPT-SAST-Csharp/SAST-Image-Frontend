@@ -1,4 +1,6 @@
 <template>
+  <CreateAlbumDialog />
+  <UploadImageDialog />
   <div style="display: flex">
     <AsideBar />
     <ElContainer>
@@ -6,19 +8,8 @@
       <ElMain>
         <RouterView v-slot="{ Component }">
           <Transition name="fade" mode="out-in">
-            <component
-              :is="Component"
-              :key="$route.name"
-              v-if="!$route.meta.keepAlive"
-            />
-          </Transition>
-          <Transition name="fade" mode="out-in">
-            <KeepAlive>
-              <component
-                :is="Component"
-                :key="$route.name"
-                v-if="$route.meta.keepAlive"
-              />
+            <KeepAlive :max="10">
+              <component :is="Component" :key="$route.path" />
             </KeepAlive>
           </Transition>
         </RouterView>
@@ -33,6 +24,8 @@ import HeaderBar from "./components/MenuBar/HeaderBar.vue";
 import AsideBar from "./components/MenuBar/AsideBar.vue";
 import useAuthStore from "./stores/auth";
 import useProfileStore from "./stores/profile";
+import CreateAlbumDialog from "./views/globalDialogs/CreateAlbumDialog.vue";
+import UploadImageDialog from "./views/globalDialogs/UploadImageDialog.vue";
 
 const auth = useAuthStore();
 const profile = useProfileStore();
@@ -86,7 +79,7 @@ if (auth.isLoggedIn == false) {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .fade-enter-from,

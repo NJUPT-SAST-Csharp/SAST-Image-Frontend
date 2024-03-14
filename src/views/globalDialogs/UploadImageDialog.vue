@@ -4,7 +4,6 @@
     align-center
     draggable
     destroy-on-close
-    width="664px"
     v-model="dialogs.uploadImageDialogStatus"
   >
     <template #header>
@@ -29,7 +28,7 @@
 
 <script setup lang="ts">
 import { ElNotification } from "element-plus";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { i18n } from "../../locales/i18n";
 import { type UploadRawFile, type UploadRequestOptions } from "element-plus";
 import uploadImageApi from "../../network/apis/image/UploadImage";
@@ -53,12 +52,13 @@ interface ImageData {
 
 const httpRequest = async (options: UploadRequestOptions) => {
   var raw = options.file;
+  const a = 12312n;
   var file: ImageData = {
     imageFile: raw,
     title: raw.uid.toString(),
     description: "",
-    category_id: 1,
-    album_id: 0,
+    category_id: 0n,
+    album_id: 0n,
     is_exif_enabled: false,
     tags: [""],
   };
@@ -83,8 +83,6 @@ const httpRequest = async (options: UploadRequestOptions) => {
     });
   }
 };
-
-const props = defineProps<{ modelValue: boolean }>();
 </script>
 
 <style scoped>

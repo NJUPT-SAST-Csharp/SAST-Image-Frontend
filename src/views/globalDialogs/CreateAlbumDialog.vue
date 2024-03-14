@@ -1,5 +1,12 @@
 <template>
-  <ElDialog v-model="dialogs.createAlbumDialogStatus"> </ElDialog>
+  <ElDialog
+    v-model="dialogs.createAlbumDialogStatus"
+    append-to-body
+    align-center
+    draggable
+    destroy-on-close
+  >
+  </ElDialog>
 </template>
 
 <script setup lang="ts">
@@ -9,4 +16,3 @@ const dialogs = useDialogStore();
 </script>
 
 <style lang="css" scoped></style>
-@/stores/dialogs

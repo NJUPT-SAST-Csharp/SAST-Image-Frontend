@@ -2,7 +2,7 @@
   <div class="main-view">
     <AlbumListHeader
       :title="i18n.global.t('albumList')"
-      :category="categoryId"
+      :category="Number.parseInt(categoryId.toString())"
     />
     <AlbumListBody :albums="albums" />
   </div>
@@ -16,14 +16,14 @@ import { i18n } from "@/locales/i18n";
 import getAlbums, { type AlbumDto } from "@/network/apis/album/GetAlbums";
 
 const albums = ref<AlbumDto[]>([]);
-const categoryId = ref(0);
+const categoryId = ref(0n);
 
 watch(categoryId, async (newCategoryId) => {
   albums.value = await getAlbums(newCategoryId, 0);
 });
 
 onMounted(async () => {
-  albums.value = await getAlbums(0, 0);
+  albums.value = await getAlbums(0n, 0);
 });
 </script>
 
