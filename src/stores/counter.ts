@@ -1,12 +1,27 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore("counter", () => {
+const useCounterStore = defineStore("counter", () => {
+  let id: number;
   const count = ref(0);
-  const doubleCount = computed(() => count.value * 2);
-  function increment() {
-    count.value++;
-  }
+  const countdown = (sec: number, action: () => void) => {
+    count.value = sec;
+    id = setInterval(() => {
+      count.value--;
+      if (count.value <= 0) {
+        stop();
+        action();
+      }
+    }, 1000);
+  };
+  const set = (sec: number) => {
+    count.value = sec;
+  };
+  const stop = () => {
+    clearInterval(id);
+  };
 
-  return { count, doubleCount, increment };
+  return { count, set, countdown, stop };
 });
+
+export default useCounterStore;

@@ -1,5 +1,6 @@
 <template>
   <ElDialog
+    class="text"
     width="600px"
     align-center
     v-model="isDialogOpen"

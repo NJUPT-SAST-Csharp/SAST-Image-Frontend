@@ -2,7 +2,7 @@
   <ElCard class="main-frame" shadow="hover">
     <template #header>
       <div>
-        <img src="../assets/logo.png" height="24" />
+        <img src="../assets/logo.png" height="32" />
       </div>
     </template>
     <ElForm inline style="margin-left: 5%">
@@ -66,8 +66,6 @@ const login = async () => {
     ElMessage.error(i18n.global.t("loginView.loginFailed"));
   } else {
     auth.setToken(response.data["jwt"]);
-    console.log(auth.getToken);
-
     ElMessage.success(i18n.global.t("loginView.loginSuccess"));
     router.push({
       name: "profile",

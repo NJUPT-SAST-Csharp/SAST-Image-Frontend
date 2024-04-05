@@ -1,16 +1,22 @@
 <template>
   <div
     class="profile-div"
-    :class="{ briefProfile: props.manual && props.collapse }"
+    :class="{
+      'profile-brief': props.manual && props.collapse,
+      'profile-div-control': !props.manual,
+    }"
   >
-    <span id="avatar-span">
+    <span class="avatar-span">
       <ElAvatar :src="profile.avatar" fit="cover">
         <img src="../../assets/avatar.png" width="40" height="40" />
       </ElAvatar>
     </span>
     <ElText
-      id="username"
-      :class="{ briefUsername: props.manual && props.collapse }"
+      class="username"
+      :class="{
+        'username-brief': props.manual && props.collapse,
+        'username-control': !props.manual,
+      }"
       truncated
     >
       {{ profile.nickname ?? $t("loginView.login") }}
@@ -31,7 +37,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
-#avatar-span {
+.avatar-span {
   width: 40px;
   display: flex;
 }
@@ -43,37 +49,41 @@ const props = defineProps({
   display: flex;
   float: left;
   border: 1px solid var(--el-border-color);
-  box-shadow: var(--el-box-shadow-lighter);
   border-radius: 20px;
   align-items: center;
   cursor: pointer;
   margin: auto;
+  transition: 0.3s;
 }
 
-#username {
+.profile-div:hover {
+  box-shadow: var(--el-box-shadow-lighter);
+}
+
+.profile-brief {
+  min-width: 40px;
+  height: 36px;
+}
+
+@media (max-width: 48rem) {
+  .profile-div-control {
+    min-width: 40px;
+    width: 0px;
+    height: 36px;
+  }
+  .username-control {
+    display: none;
+  }
+}
+
+.username {
   margin-left: auto;
   margin-right: auto;
   padding-left: 5px;
   padding-right: 10px;
 }
 
-@media (max-width: 48rem) {
-  .profile-div {
-    min-width: 40px;
-    width: 0px;
-    height: 36px;
-  }
-  #username {
-    display: none;
-  }
-}
-
-.briefProfile {
-  min-width: 40px;
-  height: 36px;
-}
-
-.briefUsername {
+.username-brief {
   display: none;
 }
 </style>

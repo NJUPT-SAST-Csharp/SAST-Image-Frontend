@@ -11,6 +11,8 @@ import { i18n } from "./locales/i18n";
 import App from "./App.vue";
 import router from "./router";
 import "element-plus/theme-chalk/display.css";
+import "./assets/global.css";
+import "vue-waterfall-plugin-next/dist/style.css";
 
 const pinia = createPinia();
 

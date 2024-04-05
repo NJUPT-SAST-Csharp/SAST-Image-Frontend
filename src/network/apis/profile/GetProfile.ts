@@ -1,9 +1,15 @@
 import request from "../../request";
 
-async function getProfile(username: string, detailed: boolean = false) {
-  const content = await request.get(
-    "/api/profile/" + username + (detailed ? "/detailed" : ""),
-  );
+async function getProfile(
+  id: bigint | null = null,
+  username: string | null = null,
+  detailed: boolean = false,
+) {
+  const content = await request.get("/api/profile/", {
+    id,
+    username,
+    detailed,
+  });
   return content;
 }
 

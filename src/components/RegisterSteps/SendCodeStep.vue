@@ -19,7 +19,7 @@
     >
       <ElCountdown
         v-if="isCountdown"
-        :value="global.countdown"
+        :value="counter.count"
         @finish="isCountdown = false"
         format="ss"
       />
@@ -32,9 +32,11 @@
 import { i18n } from "@/locales/i18n";
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
+import useCounterStore from "@/stores/counter";
 import router from "@/router";
-import global from "@/stores/global";
 import sendCodeApi from "@/network/apis/account/SendRegisterCode";
+
+const counter = useCounterStore();
 
 const isCountdown = ref(true);
 const email = ref("");
@@ -46,7 +48,6 @@ const sendToken = async () => {
   const content = await sendCodeApi(email.value);
   if (content.status < 300) {
     ElMessage.success(i18n.global.t("registerView.sendTokenSuccess"));
-    global.countdown = Date.now() + 1000 * 60;
     sessionStorage.setItem("email", email.value);
     emit("next");
   } else if (content.status == 400)

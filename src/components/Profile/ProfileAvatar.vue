@@ -34,7 +34,6 @@
 
 <script setup lang="ts">
 import { i18n } from "@/locales/i18n";
-import profile from "@/stores/profile";
 import { ElMessage, type UploadProps } from "element-plus";
 import { ref } from "vue";
 import useAuthStore from "@/stores/auth";

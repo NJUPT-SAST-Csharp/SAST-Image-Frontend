@@ -9,14 +9,13 @@
     :style="{ width: width + 'px' }"
   >
     <ElMenu
-      class="menu"
+      class="side-menu"
       :default-active="activeIndex"
       :collapse="collapsed"
       :ellipsis="false"
       :collapse-transition="false"
       unique-opened
       close-on-click-outside
-      @select="menuEvent"
       :style="{ 'min-width': width + 'px' }"
     >
       <ElMenuItem
@@ -49,10 +48,10 @@
 import ProfileDiv from "./ProfileDiv.vue";
 import MainHomeDiv from "./MainHomeDiv.vue";
 import router from "@/router";
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import useAuthStore from "@/stores/auth";
 import "element-plus/theme-chalk/display.css";
-import { ElIcon, ElMenu, ElMenuItem, ElSubMenu, ElText } from "element-plus";
+import { ElIcon, ElMenu, ElMenuItem, ElText } from "element-plus";
 import MenuItemGroup from "./MenuItemGroup.vue";
 
 const auth = useAuthStore();
@@ -67,16 +66,9 @@ watch(collapsed, (newVal) => {
   }, 0);
 });
 
-const menuEvent = () => {
-  activeIndex.value = "";
-  setTimeout(() => {
-    activeIndex.value = router.currentRoute.value.name?.toString();
-  }, 0);
-};
-
 // routers
 const toHome = () => router.push({ path: "/" });
-const toProfile = () => router.push({ path: "/" + auth.username });
+const toProfile = () => router.push({ path: "/@" + auth.username });
 </script>
 
 <style scoped lang="css">
@@ -87,25 +79,35 @@ const toProfile = () => router.push({ path: "/" + auth.username });
   height: 100%;
   box-shadow: var(--el-box-shadow-lighter);
 
-  transition:
-    width 0.75s,
-    min-width 0.75s;
+  transition: 0.75s;
 }
 
-.menu {
-  transition: min-width 0.75s;
+.side-menu {
+  transition: 0.75s;
 }
 
 .placeholder {
   margin-top: auto;
   height: 100px;
   bottom: 0;
-  transition: min-width 0.75s;
+  transition: 0.75s;
 }
 
 @media screen and (max-width: 62rem) {
   #menu-div {
     display: none;
   }
+}
+
+.el-menu-item.is-active {
+  color: #303133;
+}
+.el-menu--collapse .el-sub-menu.is-active .el-sub-menu__title {
+  color: #303133;
+  border-bottom-color: #404143;
+}
+.el-sub-menu.is-active .el-sub-menu__title {
+  color: #303133;
+  border-bottom-color: #303133;
 }
 </style>

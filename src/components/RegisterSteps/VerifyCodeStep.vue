@@ -19,15 +19,15 @@
     >
       <ElCountdown
         v-if="isCountdown"
-        :value="global.countdown"
+        :value="counter.count"
         @finish="isCountdown = false"
         format="ss"
       />
-      <span v-else>{{ $t("registerView.sendToken") }}</span>
+      <span v-else>{{ $t("registerView.send") }}</span>
     </ElButton>
   </ElFormItem>
   <ElFormItem>
-    <span style="width: 50px" />
+    <span style="width: 50px"></span>
     <ElButton type="info" icon="ArrowLeft" @click="$emit('back')">
       {{ $t("registerView.backToChangeEmail") }}
     </ElButton>
@@ -39,13 +39,14 @@
 
 <script setup lang="ts">
 import auth from "@/stores/auth";
-import global from "@/stores/global";
 import sendCodeApi from "@/network/apis/account/SendRegisterCode";
 import verifyApi from "@/network/apis/account/VerifyRegisterCode";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { i18n } from "@/locales/i18n";
+import useCounterStore from "@/stores/counter";
 
+const counter = useCounterStore();
 const emit = defineEmits(["next", "back"]);
 
 const isLoading = ref(false);
@@ -71,9 +72,9 @@ const sendToken = async () => {
   if (content.status < 300) {
     ElMessage.success(i18n.global.t("registerView.sendTokenSuccess"));
     isCountdown.value = true;
-    global.countdown = Date.now() + 1000 * 60;
   } else ElMessage.error(i18n.global.t("registerView.sendTokenFailed"));
   isLoading.value = false;
 };
 </script>
 @/network/apis/account/VerifyRegisterCode@/network/apis/account/SendRegisterCode
+@/stores/dialogs

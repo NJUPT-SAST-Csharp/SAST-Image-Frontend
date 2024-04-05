@@ -1,7 +1,7 @@
 <template>
   <div>
     <ProfileHeader
-      :src="content?.header ?? ''"
+      :src="content?.header ?? null"
       :isEditable="isEditable"
       @updated="fetchData"
     />
@@ -13,7 +13,7 @@
       />
       <ProfileInfo v-if="content" :content="content" />
     </div>
-    <ProfileTabs />
+    <ProfileTabs v-if="content" :user-id="content.id" />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ import ProfileTabs from "@/components/Profile/ProfileTabs.vue";
 import getProfile from "@/network/apis/profile/GetProfile";
 import useAuthStore from "@/stores/auth";
 import useProfileStore, { type ProfileContent } from "@/stores/profile";
-import { ElBacktop } from "element-plus";
+import { ElMessage } from "element-plus";
 import { onMounted, ref } from "vue";
 
 const profile = useProfileStore();
@@ -41,10 +41,16 @@ onMounted(async () => {
 });
 
 const fetchData = async () => {
-  const result = await getProfile(props.username, true);
-  content.value = result.data;
-  if (content.value?.username == auth.username) {
-    profile.setProfile(content.value);
+  const result = await getProfile(null, props.username, true);
+  content.value = result.data as ProfileContent;
+
+  if (result.status >= 300 || !content.value) {
+    ElMessage.error("Failed to fetch profile data");
+    return;
+  }
+
+  if (content.value.id == auth.id) {
+    profile.setProfile(content.value!);
     isEditable.value = true;
   }
 };

@@ -40,6 +40,9 @@ const dto = ref({
 });
 
 const confirm = async () => {
-  await updateProfile(dto.value);
+  const result = await updateProfile(dto.value);
+  if (result.status < 300) {
+    emit("success");
+  }
 };
 </script>
