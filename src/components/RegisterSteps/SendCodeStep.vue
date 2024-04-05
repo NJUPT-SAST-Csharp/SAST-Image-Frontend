@@ -32,7 +32,7 @@
 import { i18n } from "@/locales/i18n";
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
-import { useCounterStore } from "@/stores/counter";
+import useCounterStore from "@/stores/counter";
 import router from "@/router";
 import sendCodeApi from "@/network/apis/account/SendRegisterCode";
 

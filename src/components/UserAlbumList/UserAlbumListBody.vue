@@ -3,7 +3,7 @@
   <div class="frame" v-else>
     <UserAlbumListItem
       v-for="album in albums"
-      :key="album.albumId.toString()"
+      :key="album.albumId"
       :album="album"
     />
   </div>
@@ -33,5 +33,6 @@ onMounted(async () => {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   column-gap: 10px;
   row-gap: 1em;
+  padding: 5px;
 }
 </style>

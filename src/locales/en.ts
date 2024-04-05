@@ -84,12 +84,18 @@ const registerView = {
 };
 
 export const EN = {
+  private: "Private",
+  auth: "Auth",
+  public: "Public",
   home: "Home",
   explore: "Explore",
+  square: "Square",
   search: "Search",
   images: "Images",
   albums: "Albums",
   collapse: "Collapse",
+  reply: "Reply",
+  upload: "Upload",
   updateHeader: "Update Header",
   uploadSuccess: "Upload Success",
   uploadFail: "Upload Failed",
@@ -98,6 +104,7 @@ export const EN = {
   imageFormatError: "The file to be uploaded must be a picture.",
   albumList: "Album List",
   createNewAlbum: "Create New Album",
+  createTopic: "Create Topic",
   addNewImage: "Add New Image",
   title: "I am SastImg",
   action,

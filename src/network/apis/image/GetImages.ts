@@ -1,7 +1,9 @@
 import request from "../../request";
 
-async function getImages(username: string, page: number) {
-  const content = await request.get("/api/Image", { username, page });
+async function getImages(albumId: number, page: number) {
+  const content = await request.get(`/api/sastimg/album/${albumId}/images`, {
+    page,
+  });
   return content;
 }
 

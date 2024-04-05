@@ -23,11 +23,11 @@
         @finish="isCountdown = false"
         format="ss"
       />
-      <span v-else>{{ $t("registerView.sendToken") }}</span>
+      <span v-else>{{ $t("registerView.send") }}</span>
     </ElButton>
   </ElFormItem>
   <ElFormItem>
-    <span style="width: 50px" />
+    <span style="width: 50px"></span>
     <ElButton type="info" icon="ArrowLeft" @click="$emit('back')">
       {{ $t("registerView.backToChangeEmail") }}
     </ElButton>

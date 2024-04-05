@@ -1,12 +1,11 @@
 <template>
   <h1>{{ title }}</h1>
   <ElRadioGroup v-model="categoryId" size="large">
-    <ElRadioButton label="All" value="0"> </ElRadioButton>
+    <ElRadioButton value="0">All</ElRadioButton>
     <ElRadioButton
       v-for="category in categories"
-      :key="category.categoryId"
-      :label="category.name"
-      :value="category.categoryId"
+      :key="category.id"
+      :value="category.id"
     >
       {{ category.name }}
     </ElRadioButton>
@@ -14,12 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import type { CategoryDto } from "@/network/apis/category/GetAllCategories";
+import type { Category } from "@/stores/category";
 import getAllCategories from "@/network/apis/category/GetAllCategories";
 import { ref, defineProps, onMounted } from "vue";
 
 defineProps<{ title: string }>();
-const categories = ref<CategoryDto[]>([]);
+const categories = ref<Category[]>([]);
 const categoryId = defineModel<number>("category", {
   default: 0,
 });

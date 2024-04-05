@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
-    <ElButton type="success" icon="Upload" @click="createAlbum">
-      {{ $t("createNewAlbum") }}
+    <ElButton type="success" icon="Upload" @click="addImage">
+      {{ $t("addNewImage") }}
     </ElButton>
   </div>
 </template>
@@ -10,15 +10,15 @@
 import useDialogStore from "@/stores/dialogs";
 
 const dialogs = useDialogStore();
-const createAlbum = () => {
-  dialogs.openCreateAlbumDialog();
+const addImage = () => {
+  dialogs.openUploadImageDialog();
 };
 </script>
 
 <style scoped lang="css">
 .panel {
   display: flex;
-  margin: 5px;
   justify-content: flex-end;
+  margin: 5px;
 }
 </style>

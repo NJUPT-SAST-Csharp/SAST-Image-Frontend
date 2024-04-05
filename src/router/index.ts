@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ProfileView from "@/views/ProfileView.vue";
 import useAuthStore from "@/stores/auth";
+import SquareView from "@/views/SquareView.vue";
+import TopicView from "@/views/TopicView.vue";
 
 declare module "vue-router" {
   interface RouteMeta {
@@ -20,8 +22,7 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("../views/HomeView.vue"),
-      meta: { requiresAuth: false },
+      redirect: "/square",
     },
     {
       path: "/search",
@@ -29,6 +30,7 @@ const router = createRouter({
       component: () => import("../views/SearchView.vue"),
       meta: { requiresAuth: true },
     },
+
     {
       path: "/albums",
       name: "albums",
@@ -36,7 +38,7 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
-      path: "/:username",
+      path: "/@:username",
       name: "profile",
       component: ProfileView,
       props: true,
@@ -53,6 +55,19 @@ const router = createRouter({
       name: "register",
       component: () => import("../views/RegisterView.vue"),
       meta: { requiresAuth: false },
+    },
+    {
+      path: "/square",
+      name: "square",
+      component: SquareView,
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/topic/:id",
+      name: "topic",
+      component: TopicView,
+      props: true,
+      meta: { requiresAuth: true },
     },
   ],
 });

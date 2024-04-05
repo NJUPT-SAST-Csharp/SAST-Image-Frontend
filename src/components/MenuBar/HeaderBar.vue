@@ -55,7 +55,7 @@ window.addEventListener("scroll", () => {
 
 // routers
 const toHome = () => router.push({ path: "/" });
-const toProfile = () => router.push({ path: "/" + auth.username });
+const toProfile = () => router.push({ path: "/@" + auth.username });
 </script>
 
 <style scoped lang="css">

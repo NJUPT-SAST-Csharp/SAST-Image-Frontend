@@ -41,7 +41,7 @@ onMounted(async () => {
 });
 
 const fetchData = async () => {
-  const result = await getProfile(props.username, true);
+  const result = await getProfile(null, props.username, true);
   content.value = result.data as ProfileContent;
 
   if (result.status >= 300 || !content.value) {

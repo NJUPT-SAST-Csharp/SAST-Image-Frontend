@@ -11,7 +11,7 @@
     />
     <img
       src="../../assets/logo.png"
-      height="20"
+      height="40"
       class="detailed-logo"
       :class="{
         invisible: props.manual && props.collapse,

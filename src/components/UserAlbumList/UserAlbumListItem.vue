@@ -6,13 +6,12 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;
       "
       :body-style="{
         display: 'flex',
         padding: '10px',
         'aspect-ratio': '1000 / 618',
-        'max-height': '200px',
+        'max-height': '180px',
         'justify-content': 'center',
         'align-items': 'center',
       }"
@@ -58,7 +57,6 @@ const click = () => {};
 .item {
   cursor: pointer;
   width: 100%;
-  height: 100%;
 }
 
 .image-slot {
@@ -72,7 +70,7 @@ const click = () => {};
 }
 
 .image-div {
-  max-height: 200px;
+  max-height: 180px;
   aspect-ratio: 1000 / 618;
 }
 </style>

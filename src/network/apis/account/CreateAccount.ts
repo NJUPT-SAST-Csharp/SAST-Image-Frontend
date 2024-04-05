@@ -1,10 +1,7 @@
 import request from "../../request";
 
 async function createAccount(dto: Dto) {
-  const content = await request.post(
-    "/api/account/registration/createAccount",
-    dto,
-  );
+  const content = await request.post("/api/account/createAccount", dto);
   return content;
 }
 

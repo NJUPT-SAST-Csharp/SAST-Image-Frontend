@@ -49,6 +49,7 @@ const http = {
       params: params ? params : {},
     };
     const response = await service(config);
+
     return {
       status: response.status,
       data:
